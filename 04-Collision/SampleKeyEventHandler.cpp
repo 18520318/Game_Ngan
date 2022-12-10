@@ -50,7 +50,7 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 {
 	CGame* game = CGame::GetInstance();
 
-	if (game->IsKeyDown(DIK_RIGHT))
+	if (game->IsKeyDown(DIK_RIGHT))//DIK_SPACE
 	{
 		if (game->IsKeyDown(DIK_A))
 			mario->SetState(MARIO_STATE_RUNNING_RIGHT);
