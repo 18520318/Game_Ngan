@@ -11,7 +11,7 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	vy += ay * dt;
+	//vy += ay * dt;
 	vx += ax * dt;
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
@@ -23,9 +23,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
-	isOnPlatform = false;
+	isOnPlatform = true; //false;
+	x += vx * dt;
+	y = 100;
+	this->SetPosition(x, y);
 
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+	//CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
 void CMario::OnNoCollision(DWORD dt)
