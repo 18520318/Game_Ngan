@@ -37,5 +37,4 @@ brick.txt
 #Portal 
 50	200	160	216	180	1
 
-#Brick
-1	100	160
+
