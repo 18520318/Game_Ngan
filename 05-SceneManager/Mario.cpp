@@ -360,7 +360,7 @@ void CMario::Render()
 	else if (level == MARIO_LEVEL_RACOON)
 		aniId = GetAniIdRacoon();
 
-	animations->Get(aniId)->Render(x, y);
+	animations->Get(3201)->Render(x, y);
 
 	//RenderBoundingBox();
 	
