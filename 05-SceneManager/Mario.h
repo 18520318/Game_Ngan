@@ -33,6 +33,8 @@
 #define MARIO_STATE_SIT				600
 #define MARIO_STATE_SIT_RELEASE		601
 
+#define MARIO_STATE_SHOOTING	700
+#define MARIO_STATE_SHOOTING_RELEASE	701
 
 #pragma region ANIMATION_ID
 
@@ -78,6 +80,9 @@
 
 #define ID_ANI_FIRE_MARIO_BRACE_RIGHT 2100
 #define ID_ANI_FIRE_MARIO_BRACE_LEFT 2101
+
+#define ID_ANI_FIRE_MARIO_FIRE_ATTACK_RIGHT 2200
+#define ID_ANI_FIRE_MARIO_FIRE_ATTACK_LEFT 2201
 
 //RACOON MARIO
 #define ID_ANI_RACOON_MARIO_IDLE_RIGHT 3400
@@ -177,6 +182,7 @@ class CMario : public CGameObject
 	int GetAniIdRacoon();
 
 public:
+	boolean isShootingFire;
 	CMario(float x, float y) : CGameObject(x, y)
 	{
 		isSitting = false;
@@ -189,10 +195,12 @@ public:
 		untouchable_start = -1;
 		isOnPlatform = false;
 		coin = 0;
+		isShootingFire = false;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
+	int GetLevel() { return level; }
 
 	int IsCollidable()
 	{ 
