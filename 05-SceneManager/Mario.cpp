@@ -255,6 +255,13 @@ int CMario::GetAniIdFire()
 			else
 				aniId = ID_ANI_FIRE_MARIO_SIT_LEFT;
 		}
+		else if (isShootingFire) {
+			if (nx > 0) {
+				aniId = ID_ANI_FIRE_MARIO_FIRE_ATTACK_RIGHT;
+			}
+			else
+				aniId = ID_ANI_FIRE_MARIO_FIRE_ATTACK_LEFT;
+		}
 		else
 			if (vx == 0)
 			{
@@ -360,7 +367,7 @@ void CMario::Render()
 	else if (level == MARIO_LEVEL_RACOON)
 		aniId = GetAniIdRacoon();
 
-	animations->Get(3201)->Render(x, y);
+	animations->Get(aniId)->Render(x, y);
 
 	//RenderBoundingBox();
 	
@@ -441,6 +448,13 @@ void CMario::SetState(int state)
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;
 		ax = 0;
+		break;
+	case MARIO_STATE_SHOOTING:
+		isShootingFire = true;
+		break;
+	case MARIO_STATE_SHOOTING_RELEASE:
+		isShootingFire = false;
+		state = MARIO_STATE_IDLE;
 		break;
 	}
 
