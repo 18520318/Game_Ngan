@@ -156,6 +156,8 @@
 #define MARIO_SMALL_BBOX_WIDTH  13
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
+#define ADJUST_MARIO_SHOOT_FIRE_X 5
+#define ADJUST_MARIO_SHOOT_FIRE_Y 5
 
 #define MARIO_UNTOUCHABLE_TIME 2500
 
@@ -212,8 +214,12 @@ public:
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 
+	vector<LPGAMEOBJECT> FireList;
+	void ShootFire();
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+
+	int GetCurrentDirection() { return this->nx; }
 };

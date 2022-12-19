@@ -7,6 +7,7 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
+#include "FireBall.h"
 
 #include "Collision.h"
 
@@ -26,6 +27,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	isOnPlatform = false;
 
+	if (isShootingFire && level == MARIO_LEVEL_FIRE) {
+		ShootFire();
+		isShootingFire = false;
+	}
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -287,7 +292,7 @@ int CMario::GetAniIdFire()
 					aniId = ID_ANI_FIRE_MARIO_WALKING_LEFT;
 			}
 
-	if (aniId == -1) aniId = ID_ANI_MARIO_IDLE_RIGHT;
+	if (aniId == -1) aniId = ID_ANI_FIRE_MARIO_IDLE_RIGHT;
 	return aniId;
 }
 
@@ -370,6 +375,11 @@ void CMario::Render()
 	animations->Get(aniId)->Render(x, y);
 
 	//RenderBoundingBox();
+
+	for (int i = 0; i < FireList.size(); i++)
+	{
+		FireList[0]->Render();
+	}
 	
 	DebugOutTitle(L"Coins: %d", coin);
 }
@@ -493,6 +503,13 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 		right = left + MARIO_SMALL_BBOX_WIDTH;
 		bottom = top + MARIO_SMALL_BBOX_HEIGHT;
 	}
+}
+
+void CMario::ShootFire()
+{
+	FireBall* fireBall = new FireBall(x + ADJUST_MARIO_SHOOT_FIRE_X, y + ADJUST_MARIO_SHOOT_FIRE_Y);
+	fireBall->SetState(FIRE_FROM_MARIO);
+	FireList.push_back(fireBall);
 }
 
 void CMario::SetLevel(int l)
