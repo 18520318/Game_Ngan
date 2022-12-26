@@ -327,6 +327,13 @@ int CMario::GetAniIdRacoon()
 			else
 				aniId = ID_ANI_RACOON_MARIO_SIT_LEFT;
 		}
+		else if (IsAttack) {
+			if (nx > 0) {
+				aniId = ID_ANI_RACOON_MARIO_ATTACK_FROM_LEFT;
+			}
+			else
+				aniId = ID_ANI_RACOON_MARIO_ATTACK_FROM_RIGHT;
+		}
 		else
 			if (vx == 0)
 			{
@@ -352,7 +359,7 @@ int CMario::GetAniIdRacoon()
 					aniId = ID_ANI_RACOON_MARIO_WALKING_LEFT;
 			}
 
-	if (aniId == -1) aniId = ID_ANI_MARIO_IDLE_RIGHT;
+	if (aniId == -1) aniId = ID_ANI_RACOON_MARIO_IDLE_RIGHT;
 	return aniId;
 }
 
@@ -465,6 +472,12 @@ void CMario::SetState(int state)
 	case MARIO_STATE_SHOOTING_RELEASE:
 		isShootingFire = false;
 		state = MARIO_STATE_IDLE;
+		break;
+	case MARIO_RACOON_ATTACK:
+		IsAttack = true;
+		break;
+	case MARIO_RACOON_ATTACK_RELEASE:
+		IsAttack = false;
 		break;
 	}
 

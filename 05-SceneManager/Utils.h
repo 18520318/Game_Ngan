@@ -10,6 +10,9 @@
 #include <stdlib.h>
 #include <vector>
 
+#include <fstream>
+#include <string>
+#include "AssetIDs.h"
 
 using namespace std;
 
