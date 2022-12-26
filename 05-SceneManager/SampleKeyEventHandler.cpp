@@ -43,6 +43,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 				mario->SetState(MARIO_STATE_SHOOTING);
 			}
 		}
+		if (mario->GetLevel() == MARIO_LEVEL_RACOON) {
+			mario->SetState(MARIO_RACOON_ATTACK);
+		}
 		break;
 	}
 }
@@ -63,6 +66,9 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 	case DIK_A:
 		if (mario->GetLevel() == MARIO_LEVEL_FIRE) {
 			mario->SetState(MARIO_STATE_SHOOTING_RELEASE);
+		}
+		if (mario->GetLevel() == MARIO_LEVEL_RACOON) {
+			mario->SetState(MARIO_RACOON_ATTACK_RELEASE);
 		}
 	}
 }

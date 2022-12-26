@@ -36,6 +36,9 @@
 #define MARIO_STATE_SHOOTING	700
 #define MARIO_STATE_SHOOTING_RELEASE	701
 
+#define	MARIO_RACOON_ATTACK	800
+#define	MARIO_RACOON_ATTACK_RELEASE	801
+
 #pragma region ANIMATION_ID
 
 #define ID_ANI_MARIO_IDLE_RIGHT 400
@@ -108,6 +111,7 @@
 
 
 #define ID_ANI_RACOON_MARIO_ATTACK_FROM_LEFT 3200
+#define ID_ANI_RACOON_MARIO_ATTACK_FROM_RIGHT 3201
 
 #define ID_ANI_MARIO_DIE 999
 
@@ -210,6 +214,7 @@ public:
 	}
 
 	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable==0); }
+	boolean IsAttack = false;
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
