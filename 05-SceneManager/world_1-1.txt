@@ -1,0 +1,14 @@
+# list of object assets to load in this scene
+[ASSETS]
+mario.txt
+[OBJECTS]
+# type	x	y	extra_settings per object type
+# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas. 4: coin
+# 6 = question brick, 7 = PIPE, 8 = piranhaplant, 9 = firePiranhaPlant
+# See OBJECT_TYPE constants in AssetIDs.h
+#
+# MARIO
+0	76	350
+#0	120	10
+[TILEMAP]
+Resources\Tilemap\world1-1.txt

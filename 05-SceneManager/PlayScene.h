@@ -6,6 +6,7 @@
 #include "Brick.h"
 #include "Mario.h"
 #include "Goomba.h"
+#include "Map.h"
 //#include "Koopas.h"
 
 
@@ -22,6 +23,7 @@ protected:
 
 	void _ParseSection_ASSETS(string line);
 	void _ParseSection_OBJECTS(string line);
+	void _ParseSection_TILEMAP(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
 	
@@ -35,10 +37,13 @@ public:
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 
+	void SetCam(float cx, float cy);
+
 	void Clear();
 	void PurgeDeletedObjects();
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
+	Map* map = NULL;
 };
 
 typedef CPlayScene* LPPLAYSCENE;

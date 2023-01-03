@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Utils.h"
 
 Map::Map(int TexID, int NumofRowMap, int NumofColMap, int NumofRowTileSet, int NumofColTileSet, int TotalTile)
 {
@@ -36,8 +37,8 @@ void Map::GetSpriteTile()
 
 void Map::DrawMap()
 {
-	int FirstColumn = (int)floor(CGame::GetInstance()->GetCamX() / TILE_WIDTH);
-	int LastColumn = (int)ceil((CGame::GetInstance()->GetCamX() + CGame::GetInstance()->GetScreenWidth()) / TILE_WIDTH);
+	int FirstColumn = (int)floor(CamX / TILE_WIDTH);
+	int LastColumn = (int)ceil((CamX + CGame::GetInstance()->GetScreenWidth()) / TILE_WIDTH);
 	if (LastColumn >= NumofColMap)
 		LastColumn = NumofColMap - 1;
 	for (int CurrentRow = 0; CurrentRow < NumofRowMap; CurrentRow++) {

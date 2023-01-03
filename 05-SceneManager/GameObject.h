@@ -51,6 +51,9 @@ public:
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
 
+	float GetX() { return this->x; }
+	float GetY() { return this->y; }
+
 	//
 	// Collision ON or OFF ? This can change depending on object's state. For example: die
 	//

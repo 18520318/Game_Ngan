@@ -16,13 +16,15 @@ class Map
 	int TotalTile;
 	int** TileMapData;
 	vector<LPSPRITE> Tiles;
-
+	float CamX, CamY;
 public:
 	Map(int TexID, int NumofRowMap, int NumofColMap, int NumofRowTileSet, int NumofColTileSet, int TotalTile);
 	~Map();
 	void SetMapData(int** mapData);
 	void GetSpriteTile();
 	void DrawMap();
+
+	void SetCamPos(float x, float y) { CamX = x; CamY = y; }
 
 	int GetMapWidth();
 	int GetMapHeight();

@@ -12,6 +12,7 @@
 
 #include <fstream>
 #include <string>
+#include <iostream>
 #include "AssetIDs.h"
 
 using namespace std;
