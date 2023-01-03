@@ -15,7 +15,7 @@
 #define MARIO_JUMP_SPEED_Y		0.5f
 #define MARIO_JUMP_RUN_SPEED_Y	0.6f
 
-#define MARIO_GRAVITY			0.002f
+#define MARIO_GRAVITY			0//0.002f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.4f
 
@@ -188,6 +188,7 @@ class CMario : public CGameObject
 	int GetAniIdRacoon();
 
 public:
+	CGameObject* obj = NULL;
 	boolean isShootingFire;
 	CMario(float x, float y) : CGameObject(x, y)
 	{
@@ -202,6 +203,8 @@ public:
 		isOnPlatform = false;
 		coin = 0;
 		isShootingFire = false;
+		this->x = x;
+		this->y = y;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();

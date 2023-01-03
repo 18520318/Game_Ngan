@@ -15,6 +15,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
@@ -382,11 +383,6 @@ void CMario::Render()
 	animations->Get(aniId)->Render(x, y);
 
 	//RenderBoundingBox();
-
-	for (int i = 0; i < FireList.size(); i++)
-	{
-		FireList[0]->Render();
-	}
 	
 	DebugOutTitle(L"Coins: %d", coin);
 }
