@@ -6,6 +6,7 @@
 #include "Brick.h"
 #include "Mario.h"
 #include "Goomba.h"
+#include "Map.h"
 //#include "Koopas.h"
 
 
@@ -13,7 +14,7 @@ class CPlayScene: public CScene
 {
 protected: 
 	// A play scene has to have player, right? 
-	LPGAMEOBJECT player;					
+	CMario* player = NULL;
 
 	vector<LPGAMEOBJECT> objects;
 
@@ -22,6 +23,7 @@ protected:
 
 	void _ParseSection_ASSETS(string line);
 	void _ParseSection_OBJECTS(string line);
+	void _ParseSection_TILEMAP(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
 	
@@ -33,12 +35,22 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
-	LPGAMEOBJECT GetPlayer() { return player; }
+	CMario* GetPlayer() { return player; }
+
+	void SetCam(float cx, float cy);
 
 	void Clear();
 	void PurgeDeletedObjects();
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
+	Map* map = NULL;
+
+	void PutPlayer(CMario* m)
+	{
+		if (dynamic_cast<CMario*>(objects[0]))
+			objects[0] = m;
+	}
+	void SetPlayer(CMario* mario) { player = mario; }
 };
 
 typedef CPlayScene* LPPLAYSCENE;
