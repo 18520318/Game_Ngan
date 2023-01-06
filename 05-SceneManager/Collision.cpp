@@ -363,3 +363,8 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
+
+bool CCollision::IsOverlap(float ml, float mt, float mr, float mb, float sl, float st, float sr, float sb)
+{
+	return !(mr <= sl || ml >= sr || mt >= sb || mb <= st);
+}
