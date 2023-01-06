@@ -96,6 +96,9 @@
     <ClCompile Include="QBCoin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Tail.cpp">
+      <Filter>Mario</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="QBCoin.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tail.h">
+      <Filter>Mario</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
