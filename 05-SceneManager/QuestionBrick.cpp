@@ -11,6 +11,13 @@ void CQuestionBrick::GetBoundingBox(float& left, float& top, float& right, float
 
 void CQuestionBrick::Render()
 {
+	int aniId = ID_ANI_QUESTION_BRICK;
+
+	if (isEmpty) {
+		aniId = ID_ANI_QUESTION_BRICK_EMPTY;
+	}
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+	//RenderBoundingBox();
 }
 
 CQuestionBrick::CQuestionBrick(float x, float y, int type)
