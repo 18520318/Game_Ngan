@@ -238,4 +238,7 @@ public:
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 	int GetCurrentDirection() { return this->nx; }
+
+	int GetCoin() { return coin; }
+	void SetCoin(int _coin) { coin = _coin; }
 };

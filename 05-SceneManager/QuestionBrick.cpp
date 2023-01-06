@@ -3,6 +3,7 @@
 #include "Mario.h"
 #include "PlayScene.h"
 #include "Leaf.h"
+#include "QBCoin.h"
 
 void CQuestionBrick::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -61,13 +62,13 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				//leaf->SetState(LEAF_STATE_UP);
 				scene->objects.insert(scene->objects.begin() + 1, leaf);
 			}
-		}/*
+		}
 		else {
 			QBCoin* coin = new QBCoin(x, y);
-			coin->SetState(QB_COIN_STATE_UP);
+			//coin->SetState(QB_COIN_STATE_UP);
 			scene->objects.insert(scene->objects.begin() + 1, coin);
 			mario->SetCoin(mario->GetCoin() + 1);
-		}*/
+		}
 		isOpened = false;
 	}
 

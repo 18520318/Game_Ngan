@@ -2,7 +2,8 @@
 
 void QBCoin::Render()
 {
-	int aniId = ID_ANI_QB_COIN;
+	int aniId = -1;
+	aniId = ID_ANI_QB_COIN;
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	//RenderBoundingBox();

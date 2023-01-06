@@ -3,6 +3,9 @@
 
 #define ID_ANI_QB_COIN 112
 
+#define QBCOIN_BBOX_WIDTH 14
+#define QBCOIN_BBOX_HEIGHT 14
+
 class QBCoin :
     public CGameObject
 {
