@@ -21,4 +21,6 @@ height	240
 22	textures\misc2.png
 23	textures\misc3.png
 30	textures\enemies1.png
+31	textures\enemies2.png
+32	textures\enemies3.png
 80	textures\Map\world1-1_bank.png

@@ -5,6 +5,7 @@ coin.txt
 cloud.txt
 brick.txt
 items.txt
+goomba.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas. 4: coin
@@ -95,5 +96,11 @@ items.txt
 7	657	384	2
 7	705	352	1
 7	1473	368	2
+###GOOMBA###
+2	236	369	1
+2	880	353	1
+2	928	353	1
+2	992	353	2
+2	528	369	1
 [TILEMAP]
 Resources\Tilemap\world1-1.txt

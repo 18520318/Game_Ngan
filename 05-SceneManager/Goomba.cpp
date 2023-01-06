@@ -1,10 +1,11 @@
 #include "Goomba.h"
 
-CGoomba::CGoomba(float x, float y):CGameObject(x, y)
+CGoomba::CGoomba(float x, float y, int type):CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
+	this->objType = type;
 	SetState(GOOMBA_STATE_WALKING);
 }
 
@@ -65,11 +66,23 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CGoomba::Render()
 {
-	int aniId = ID_ANI_GOOMBA_WALKING;
-	if (state == GOOMBA_STATE_DIE) 
-	{
-		aniId = ID_ANI_GOOMBA_DIE;
+	int aniId = -1;
+	if (objType == NORMAL_GOOMBA) {
+		aniId = ID_ANI_GOOMBA_WALKING;
+		if (state == GOOMBA_STATE_DIE)
+		{
+			aniId = ID_ANI_GOOMBA_DIE;
+		}
 	}
+	else
+	{
+		aniId = ID_RED_GOOMBA_WING_WALKING;
+		if (state == GOOMBA_STATE_DIE)
+		{
+			aniId = ID_RED_GOOMBA_DIE;
+		}
+	}
+	
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x,y);
 	RenderBoundingBox();
