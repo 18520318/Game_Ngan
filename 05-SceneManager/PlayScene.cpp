@@ -9,6 +9,8 @@
 #include "Portal.h"
 #include "Coin.h"
 #include "Platform.h"
+#include "BGBlock.h"
+#include "QuestionBrick.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -73,7 +75,7 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 
 	if (tokens.size() < 3) return; // skip invalid lines - an animation must at least has 1 frame and 1 frame time
 
-	DebugOut(L"--> %s\n",ToWSTR(line).c_str());
+	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
 
 	LPANIMATION ani = new CAnimation();
 
@@ -120,6 +122,18 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+	case OBJECT_TYPE_BLOCK: {
+		float width = (float)atof(tokens[3].c_str());
+		float height = (float)atof(tokens[4].c_str());
+		obj = new CBGBlock(x, y, width, height);
+		break;
+	}
+
+	case OBJECT_TYPE_QUESTION_BRICK: {
+		float type = (float)atof(tokens[3].c_str());
+		obj = new CQuestionBrick(x, y, type);
+		break;
+	}
 
 	case OBJECT_TYPE_PLATFORM:
 	{
@@ -310,7 +324,7 @@ void CPlayScene::SetCam(float cx, float cy)
 		cx = (float)mw - (float)sw;
 
 	//cy -= sh /2 + MARIO_BIG_BBOX_HEIGHT;
-	cy = mh - sh;
+	cy = (float)mh - (float)sh;
 	if (cy <= 0)//Left Edge
 		cy = 0;
 
