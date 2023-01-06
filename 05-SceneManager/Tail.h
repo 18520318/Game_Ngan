@@ -14,6 +14,13 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Render();
 
+	void SetWidth(float width) { this->width = width; }
+	void SetHeight(float height) { this->height = height; }
+
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+
+	void OnCollisionWithQuestionBrick(LPGAMEOBJECT& e);
+
 	CTail(float x, float y) {};
 };
 
