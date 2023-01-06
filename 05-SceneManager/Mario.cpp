@@ -30,8 +30,17 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 	isOnPlatform = false;
-
-
+	if (IsAttack) {
+		SetTail();
+	}
+	if (tail) {
+		tail->Update(dt, coObjects);
+	}
+	if (IsAttack && GetTickCount64() - attack_start > MARIO_RACCON_ATTACK_TIME_OUT) {
+		IsAttack = false;
+		attack_start = -1;
+		tail = NULL;
+	}
 	if (isGoThroughBlock) {
 		y -= ADJUST_MARIO_COLLISION_WITH_COLOR_BLOCK;
 		vy = -MARIO_JUMP_SPEED_MAX;
@@ -43,6 +52,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		isShootingFire = false;
 	}
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+void CMario::SetTail()
+{
+	if (!tail) {
+		tail = new CTail(x, y);
+	}
+	if (nx > 0)
+	{
+		tail->SetPosition(x - TAIL_BBOX_WIDTH / 2, y + POSITION_Y_OF_TAIL_MARIO / 2 - TAIL_BBOX_HEIGHT / 2);
+	}
+	else {
+		tail->SetPosition(x + MARIO_BIG_BBOX_WIDTH - TAIL_BBOX_WIDTH / 2, y + POSITION_Y_OF_TAIL_MARIO / 2 - TAIL_BBOX_HEIGHT / 2);
+	}
+	tail->SetWidth(TAIL_BBOX_WIDTH);
+	tail->SetHeight(TAIL_BBOX_HEIGHT);
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -421,6 +446,10 @@ void CMario::Render()
 
 	animations->Get(aniId)->Render(x, y);
 
+	if (tail) {
+		tail->Render();
+	}
+
 	//RenderBoundingBox();
 	
 	DebugOutTitle(L"Coins: %d", coin);
@@ -510,9 +539,7 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_RACOON_ATTACK:
 		IsAttack = true;
-		break;
-	case MARIO_RACOON_ATTACK_RELEASE:
-		IsAttack = false;
+		attack_start = GetTickCount64();
 		break;
 	}
 

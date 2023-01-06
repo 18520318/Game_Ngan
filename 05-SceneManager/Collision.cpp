@@ -214,6 +214,16 @@ void CCollision::Filter( LPGAMEOBJECT objSrc,
 	if (min_iy >= 0) colY = coEvents[min_iy];
 }
 
+bool CCollision::CheckAABB(LPGAMEOBJECT objA, LPGAMEOBJECT objB)
+{
+	float aL, aT, aR, aB;
+	float bL, bT, bR, bB;
+	objA->GetBoundingBox(aL, aT, aR, aB);
+	objB->GetBoundingBox(bL, bT, bR, bB);
+
+	return (!(aL > bR || aT > bB || aR < bL || aB < bT));
+}
+
 /*
 *  Simple/Sample collision framework 
 *  NOTE: Student might need to improve this based on game logic 

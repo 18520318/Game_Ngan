@@ -80,6 +80,7 @@ public:
 		int filterBlock,		
 		int filterX,
 		int filterY);
+	bool CheckAABB(LPGAMEOBJECT objA, LPGAMEOBJECT objB);
 
 	void Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
