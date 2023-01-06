@@ -10,6 +10,7 @@
 #include "FireBall.h"
 #include "BGBlock.h"
 #include "QuestionBrick.h"
+#include "Leaf.h"
 
 #include "Collision.h"
 
@@ -73,6 +74,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithBackgroundBlock(e);
 	else if (dynamic_cast<CQuestionBrick*>(e->obj))
 		OnCollisionWithQuestionBrick(e);
+	else if (dynamic_cast<CQuestionBrick*>(e->obj))
+		OnCollisionWithLeaf(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -135,6 +138,13 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
 	if (e->ny > 0 && !questionBrick->isEmpty) {
 		questionBrick->SetState(QUESTION_BRICK_STATE_UP);
 	}
+}
+
+void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
+{
+	DebugOut(L"-------------------------------------------------------");
+	level = MARIO_LEVEL_RACOON;
+	e->obj->Delete();
 }
 
 //

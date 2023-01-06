@@ -59,13 +59,13 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (objType == QUESTION_BRICK_ITEM) {
 			if (mario->GetLevel() == MARIO_LEVEL_BIG) {
 				CLeaf* leaf = new CLeaf(x, y);
-				//leaf->SetState(LEAF_STATE_UP);
-				scene->objects.insert(scene->objects.begin() + 1, leaf);
+				leaf->SetState(LEAF_STATE_UP);
+				scene->objects.push_back(leaf);//insert(scene->objects.begin() + 1, leaf);
 			}
 		}
 		else {
 			QBCoin* coin = new QBCoin(x, y);
-			//coin->SetState(QB_COIN_STATE_UP);
+			coin->SetState(QB_COIN_STATE_UP);
 			scene->objects.insert(scene->objects.begin() + 1, coin);
 			mario->SetCoin(mario->GetCoin() + 1);
 		}
