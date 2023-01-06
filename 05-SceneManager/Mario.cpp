@@ -9,7 +9,6 @@
 #include "Portal.h"
 #include "FireBall.h"
 #include "BGBlock.h"
-#include "QuestionBrick.h"
 
 #include "Collision.h"
 
@@ -71,8 +70,6 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CBGBlock*>(e->obj))
 		OnCollisionWithBackgroundBlock(e);
-	else if (dynamic_cast<CQuestionBrick*>(e->obj))
-		OnCollisionWithQuestionBrick(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -126,14 +123,6 @@ void CMario::OnCollisionWithBackgroundBlock(LPCOLLISIONEVENT e)
 	CBGBlock* block = dynamic_cast<CBGBlock*>(e->obj);
 	if (e->ny > 0) {
 		isGoThroughBlock = true;
-	}
-}
-
-void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
-{
-	CQuestionBrick* questionBrick = dynamic_cast<CQuestionBrick*>(e->obj);
-	if (e->ny > 0 && !questionBrick->isEmpty) {
-		questionBrick->SetState(QUESTION_BRICK_STATE_UP);
 	}
 }
 

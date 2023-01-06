@@ -16,6 +16,8 @@ protected:
 	// A play scene has to have player, right? 
 	CMario* player = NULL;
 
+	vector<LPGAMEOBJECT> objects;
+
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
 
@@ -49,8 +51,6 @@ public:
 			objects[0] = m;
 	}
 	void SetPlayer(CMario* mario) { player = mario; }
-
-	vector<LPGAMEOBJECT> objects;
 };
 
 typedef CPlayScene* LPPLAYSCENE;
