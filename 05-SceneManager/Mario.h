@@ -9,12 +9,14 @@
 
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.2f
+#define MARIO_RUNNING_MAX_SPEED 0.8f
 
 #define MARIO_ACCEL_WALK_X	0.0005f
 #define MARIO_ACCEL_RUN_X	0.0007f
 
 #define MARIO_JUMP_SPEED_Y		0.5f
 #define MARIO_JUMP_RUN_SPEED_Y	0.6f
+#define MARIO_JUMP_MAX 0.8f
 
 #define MARIO_GRAVITY			0.0018f
 
@@ -41,6 +43,8 @@
 
 #define	MARIO_RACOON_ATTACK	800
 #define	MARIO_RACOON_ATTACK_RELEASE	801
+
+#define MARIO_POWER_FULL 7
 
 #pragma region ANIMATION_ID
 
@@ -234,6 +238,11 @@ public:
 
 	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable==0); }
 	boolean IsAttack = false;
+	boolean isRunning = false;
+	boolean isWalking = false;
+	boolean isRunningMax = false;
+	boolean canFallSlow = false;
+
 	void SetTail();
 
 	void OnNoCollision(DWORD dt);
@@ -254,4 +263,6 @@ public:
 	//Countdown time
 	ULONGLONG attack_start = -1;
 	ULONGLONG transform_start = -1;
+
+	int powerStack = 0;
 };

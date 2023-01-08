@@ -21,6 +21,60 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
+	if (x <= MARIO_BIG_BBOX_WIDTH) {
+		x = MARIO_BIG_BBOX_WIDTH;
+	}
+	if (x + MARIO_BIG_BBOX_WIDTH >= scene->map->GetMapWidth()) {
+		x = (float)(scene->map->GetMapWidth() - MARIO_BIG_BBOX_WIDTH);
+	}
+	if (y <= 0) {
+		y = 0;
+	}
+
+	if (abs(vx) > MARIO_WALKING_SPEED) {
+		if (!isRunning) {
+			vx = nx * MARIO_WALKING_SPEED;
+		}
+		else {
+			if (abs(vx) >= MARIO_RUNNING_SPEED) {
+				if (powerStack < MARIO_POWER_FULL) {
+					vx = nx * MARIO_RUNNING_SPEED;
+				}
+				else {
+					vx = nx * MARIO_RUNNING_MAX_SPEED;
+				}
+			}
+		}
+	}
+
+	if (vx < 0 && nx > 0 && !isWalking)
+	{
+		vx = 0;
+		ax = 0;
+	}
+	if (vx > 0 && nx < 0 && !isWalking)
+	{
+		vx = 0;
+		ax = 0;
+	}
+
+	if (vy <= -MARIO_JUMP_MAX && !isRunningMax) {
+		vy = -MARIO_JUMP_MAX;
+		ay = MARIO_GRAVITY;
+	}
+
+	if (vy <= -MARIO_JUMP_RUN_SPEED_Y && isRunningMax) {
+		vy = -MARIO_JUMP_RUN_SPEED_Y;
+		ay = MARIO_GRAVITY;
+	}
+
+	if (vy < 0) {
+		isOnPlatform = false;
+	}
+
+	if (level == MARIO_LEVEL_RACOON && vy > 0) {
+		canFallSlow = true;
+	}
 
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
