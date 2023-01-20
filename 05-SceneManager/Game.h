@@ -40,7 +40,7 @@ class CGame
 	LPDIRECTINPUT8       di;		// The DirectInput object         
 	LPDIRECTINPUTDEVICE8 didv;		// The keyboard device 
 
-	BYTE  keyStates[KEYBOARD_STATE_SIZE];			// DirectInput keyboard state buffer 
+	//BYTE  keyStates[KEYBOARD_STATE_SIZE];			// DirectInput keyboard state buffer 
 	DIDEVICEOBJECTDATA keyEvents[KEYBOARD_BUFFER_SIZE];		// Buffered keyboard data
 
 	LPKEYEVENTHANDLER keyHandler;
@@ -126,6 +126,10 @@ public:
 	bool IsKeyDown(int keyCode);
 	bool IsKeyPressed(int keyCode);
 	bool IsKeyReleased(int keyCode);
+
+	BYTE keyStates[256] = { ' ' };
+	BYTE keyPressed[256] = { 0 };
+	BYTE keyRelease[256] = { 0 };
 
 	~CGame();
 };

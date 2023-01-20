@@ -1,4 +1,4 @@
-#include "SampleKeyEventHandler.h"
+/*#include "SampleKeyEventHandler.h"
 
 #include "debug.h"
 #include "Game.h"
@@ -59,4 +59,4 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 		mario->SetState(MARIO_STATE_SIT);
 	}
 
-}
+}*/

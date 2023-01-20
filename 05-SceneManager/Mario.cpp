@@ -115,26 +115,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (game->IsKeyPressed(DIK_3)) {
 		SetLevel(MARIO_LEVEL_RACOON);
 	}
-	if (game->IsKeyDown(DIK_RIGHT))
-	{
-		direct = 1;
-		if (game->IsKeyDown(DIK_A))
-			walkState = MarioWalkState::Run;
-		else
-			walkState = MarioWalkState::Walk;
-	}
-	else if (game->IsKeyDown(DIK_LEFT))
-	{
-		direct = 0;
-		if (game->IsKeyDown(DIK_A))
-			walkState = MarioWalkState::Run;
-		else
-			walkState = MarioWalkState::Walk;
-	}
-	else
-		walkState = MarioWalkState::Idle;
+	
 
 	SitStateUpdate();
+	WalkStateUpdate();
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -380,9 +364,9 @@ int CMario::GetAniIdBig()
 	}
 	else {
 
-		if (walkState == MarioWalkState::Sit) {
+		/*if (walkState == MarioWalkState::Sit) {
 			aniId = ID_ANI_MARIO_SIT_RIGHT;
-		}
+		}*/
 		switch (walkState)
 		{
 		case MarioWalkState::Run:
@@ -557,7 +541,10 @@ void CMario::Render()
 	else if (level == MARIO_LEVEL_RACOON)
 		aniId = GetAniIdRacoon();
 
-	if (direct == 0) aniId += 1;
+	if (direct == -1) {
+		aniId += 1;
+		direct = 1;
+	}
 	animations->Get(aniId)->Render(x, y);
 
 	if (tail) {
@@ -698,13 +685,34 @@ void CMario::SitStateUpdate()
 {
 	LPGAME game = CGame::GetInstance();
 	if (game->IsKeyDown(DIK_DOWN)) {
-		//if (jumpState == MarioJumpState::Idle) {
 			walkState = MarioWalkState::Sit;
-		//}
 	}
 	if (game->IsKeyReleased(DIK_DOWN) && walkState == MarioWalkState::Sit) {
 		walkState = MarioWalkState::Idle;
 	}
+}
+
+void CMario::WalkStateUpdate()
+{
+	LPGAME game = CGame::GetInstance();
+	if (game->IsKeyDown(DIK_RIGHT) || game->IsKeyDown(DIK_LEFT))
+	{
+		direct = game->IsKeyDown(DIK_RIGHT) ? 1 : -1;
+		if(isOnPlatform) walkState = MarioWalkState::Walk;
+		if (game->IsKeyDown(DIK_A)) {
+			if (isOnPlatform) {
+				walkState = MarioWalkState::Run;
+			}
+		}
+	}
+	
+	//else
+		//walkState = MarioWalkState::Idle;
+}
+
+void CMario::JumpStateUpdate()
+{
+	LPGAME game = CGame::GetInstance();
 }
 
 void CMario::ShootFire()

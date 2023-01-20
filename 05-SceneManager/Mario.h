@@ -272,8 +272,8 @@ public:
 	MarioJumpState jumpState;
 
 	void SitStateUpdate();
-	void WalkState();
-	void JumpState();
+	void WalkStateUpdate();
+	void JumpStateUpdate();
 
 	int direct = 1;
 };
