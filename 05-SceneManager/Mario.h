@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "Animations.h"
 #include "Tail.h"
+#include "Utils.h"
 
 #include "debug.h"
 
@@ -265,4 +266,14 @@ public:
 	ULONGLONG transform_start = -1;
 
 	int powerStack = 0;
+
+	MarioWalkState walkState;
+
+	MarioJumpState jumpState;
+
+	void SitStateUpdate();
+	void WalkState();
+	void JumpState();
+
+	int direct = 1;
 };

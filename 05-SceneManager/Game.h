@@ -86,7 +86,7 @@ public:
 
 	// Keyboard related functions 
 	void InitKeyboard();
-	int IsKeyDown(int KeyCode);
+	//int IsKeyDown(int KeyCode);
 	void ProcessKeyboard();
 	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
 
@@ -122,6 +122,10 @@ public:
 
 	void _ParseSection_TEXTURES(string line);
 
+
+	bool IsKeyDown(int keyCode);
+	bool IsKeyPressed(int keyCode);
+	bool IsKeyReleased(int keyCode);
 
 	~CGame();
 };

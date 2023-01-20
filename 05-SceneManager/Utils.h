@@ -20,3 +20,21 @@ vector<string> split(string line, string delimeter = "\t");
 wstring ToWSTR(string st);
 
 LPCWSTR ToLPCWSTR(string st);
+
+enum class MarioWalkState
+{
+	Idle,
+	Walk,
+	Run,
+	Sit
+};
+
+enum class MarioJumpState
+{
+	Idle,
+	Jump,
+	HighJump,
+	Fly,
+	Float,
+	Fall
+};

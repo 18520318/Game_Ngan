@@ -321,10 +321,10 @@ LPTEXTURE CGame::LoadTexture(LPCWSTR texturePath)
 	return new CTexture(tex, gSpriteTextureRV);
 }
 
-int CGame::IsKeyDown(int KeyCode)
-{
-	return (keyStates[KeyCode] & 0x80) > 0;
-}
+//int CGame::IsKeyDown(int KeyCode)
+//{
+//	return (keyStates[KeyCode] & 0x80) > 0;
+//}
 
 void CGame::InitKeyboard()
 {
@@ -430,6 +430,20 @@ void CGame::ProcessKeyboard()
 		else
 			keyHandler->OnKeyUp(KeyCode);
 	}
+}
+
+bool CGame::IsKeyDown(int keyCode) {
+	return (this->keyStates[keyCode] & 0x80) > 0;
+}
+
+bool CGame::IsKeyPressed(int keyCode)
+{
+	return keyPressed[keyCode] == 1;
+}
+
+bool CGame::IsKeyReleased(int keyCode)
+{
+	return keyRelease[keyCode] == 1;
 }
 
 #define MAX_GAME_LINE 1024
