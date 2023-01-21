@@ -8,6 +8,7 @@
 #include "Animations.h"
 #include "Sprites.h"
 #include "Collision.h"
+#include "AssetIDs.h"
 
 using namespace std;
 
@@ -72,4 +73,10 @@ public:
 	int objType = 0;
 
 	static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }
+
+	bool checkObjectInCamera(CGameObject* obj);
+
+	int GetDirection() { return this->nx; }
+
+	int GetType() { return objType; }
 };

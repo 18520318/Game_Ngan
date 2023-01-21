@@ -122,7 +122,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_GOOMBA: {
 		int type = (int)atof(tokens[3].c_str());
-		obj = new CQuestionBrick(x, y, type);//CGoomba
+		obj = new CGoomba(x, y, type);//CGoomba
 		break;
 	}
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
