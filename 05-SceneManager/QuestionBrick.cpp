@@ -4,6 +4,7 @@
 #include "PlayScene.h"
 #include "Leaf.h"
 #include "QBCoin.h"
+#include "Mushroom.h"
 
 void CQuestionBrick::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -58,9 +59,14 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (isOpened) {
 		if (objType == QUESTION_BRICK_ITEM) {
 			if (mario->GetLevel() == MARIO_LEVEL_BIG) {
-				CLeaf* leaf = new CLeaf(x, y);
-				leaf->SetState(LEAF_STATE_UP);
-				scene->objects.push_back(leaf);//insert(scene->objects.begin() + 1, leaf);
+			//	CLeaf* leaf = new CLeaf(x, y);
+			//	leaf->SetState(LEAF_STATE_UP);
+			//	scene->objects.push_back(leaf);//insert(scene->objects.begin() + 1, leaf);
+			//}
+			//if (mario->GetLevel() == MARIO_LEVEL_SMALL) {
+				CMushroom* mushroom = new CMushroom(x, y);
+				mushroom->SetState(MUSHROOM_STATE_UP);
+				scene->objects.insert(scene->objects.begin() + 1, mushroom);//push_back(mushroom);//insert(scene->objects.begin() + 1, mushroom);
 			}
 		}
 		else {
