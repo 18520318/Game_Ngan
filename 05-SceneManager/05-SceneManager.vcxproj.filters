@@ -99,6 +99,9 @@
     <ClCompile Include="Tail.cpp">
       <Filter>Mario</Filter>
     </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="Tail.h">
       <Filter>Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
