@@ -207,16 +207,18 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 			{
 				if (level > MARIO_LEVEL_SMALL)
 				{
-					level = MARIO_LEVEL_SMALL;
+					level--;
 					StartUntouchable();
 				}
 				else
 				{
 					DebugOut(L">>> Mario DIE >>> \n");
 					SetState(MARIO_STATE_DIE);
+					die_start = GetTickCount64();
 				}
 			}
 		}
+		else return;
 	}
 }
 

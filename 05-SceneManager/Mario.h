@@ -264,6 +264,7 @@ public:
 	//Countdown time
 	ULONGLONG attack_start = -1;
 	ULONGLONG transform_start = -1;
+	ULONGLONG die_start = -1;
 
 	int powerStack = 0;
 
