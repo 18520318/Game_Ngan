@@ -559,7 +559,6 @@ void CMario::Render()
 
 	if (direct == -1) {
 		aniId += 1;
-		direct = 1;
 	}
 	animations->Get(aniId)->Render(x, y);
 
