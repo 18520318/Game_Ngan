@@ -38,3 +38,23 @@ enum class MarioJumpState
 	Float,
 	Fall
 };
+
+#define TYPE_MARIO 0
+#define TYPE_OBJECT 1
+#define TYPE_ENEMY 2
+#define TYPE_COIN 3
+#define TYPE_GOLDBRICK 4
+#define TYPE_COLOR_BLOCK 5
+
+enum EType {
+	MARIO = TYPE_MARIO,
+	OBJECT = TYPE_OBJECT,
+	ENEMY = TYPE_ENEMY,
+	COIN = TYPE_COIN,
+	GOLDBRICK = TYPE_GOLDBRICK,
+	COLORBLOCK = TYPE_COLOR_BLOCK,
+};
+
+#define ENEMY_STATE_IS_KOOPAS_ATTACKED 900 // koopas is kicked attack or tail attack
+#define ENEMY_STATE_IS_FIRE_ATTACKED 901
+#define ENEMY_STATE_IS_TAIL_ATTACKED 902

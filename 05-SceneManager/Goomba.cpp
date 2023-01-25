@@ -11,6 +11,8 @@ CGoomba::CGoomba(float x, float y, int type):CGameObject(x, y)
 	nx = -1;
 	if(type == NORMAL_GOOMBA) SetState(GOOMBA_STATE_WALKING);
 	else SetState(GOOMBA_RED_WING_STATE_WALKING);
+
+	SetType(EType::ENEMY);
 }
 
 void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)

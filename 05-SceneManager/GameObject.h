@@ -25,7 +25,8 @@ protected:
 	float vx;
 	float vy;
 
-	int nx;	 
+	int nx;	
+	int ny;
 
 	int state;
 
@@ -79,4 +80,9 @@ public:
 	int GetDirection() { return this->nx; }
 
 	int GetType() { return objType; }
+
+	void SetDirectionX(int nx) { this->nx = nx; }
+	void SetDirectionY(int ny) { this->ny = ny; }
+
+	void SetType(int type) { this->objType = type; }
 };
