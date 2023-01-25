@@ -3,11 +3,12 @@
 #include "PlayScene.h"
 #include "FireBall.h"
 
-FirePiranhaPlant::FirePiranhaPlant(float x, float y, int type)
+FirePiranhaPlant::FirePiranhaPlant(float x, float y, int type) : CGameObject(x, y)
 {
 	this->x = x;
 	this->y = y;
 	this->objType = type;
+	//DebugOut(L"[ERROR] Fire Pi ID is %d!\n", type);
 	this->ax = 0;
 	this->ay = 0;
 	this->startY = y;
@@ -81,6 +82,7 @@ void FirePiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void FirePiranhaPlant::Render()
 {
 	int aniId = ID_ANI_FPP_LEFT_BOTTOM;
+	DebugOut(L"[ERROR] Fire Pi ID is %d!\n", GetType());
 	if (startShoot)
 	{
 		if (isBottom) {
@@ -92,14 +94,14 @@ void FirePiranhaPlant::Render()
 					aniId = ID_ANI_FPP_LEFT_BOTTOM_SHOOT;
 				}
 			}
-			/*else {
+			else {
 				if (nx > 0) {
 					aniId = ID_ANI_FPP_SMALL_RIGHT_BOTTOM_SHOOT;
 				}
 				else {
 					aniId = ID_ANI_FPP_SMALL_LEFT_BOTTOM_SHOOT;
 				}
-			}*/
+			}
 		}
 		else {
 			if (objType == FPP_BIG) {
@@ -110,14 +112,14 @@ void FirePiranhaPlant::Render()
 					aniId = ID_ANI_FPP_LEFT_TOP_SHOOT;
 				}
 			}
-			/*else {
+			else {
 				if (nx > 0) {
 					aniId = ID_ANI_FPP_SMALL_RIGHT_TOP_SHOOT;
 				}
 				else {
 					aniId = ID_ANI_FPP_SMALL_LEFT_TOP_SHOOT;
 				}
-			}*/
+			}
 		}
 	}
 	else
@@ -131,14 +133,14 @@ void FirePiranhaPlant::Render()
 					aniId = ID_ANI_FPP_LEFT_BOTTOM;
 				}
 			}
-			/*else {
+			else {
 				if (nx > 0) {
 					aniId = ID_ANI_FPP_SMALL_RIGHT_BOTTOM;
 				}
 				else {
 					aniId = ID_ANI_FPP_SMALL_LEFT_BOTTOM;
 				}
-			}*/
+			}
 		}
 		else {
 			if (objType == FPP_BIG) {
@@ -149,14 +151,14 @@ void FirePiranhaPlant::Render()
 					aniId = ID_ANI_FPP_LEFT_TOP;
 				}
 			}
-			/*else {
+			else {
 				if (nx > 0) {
 					aniId = ID_ANI_FPP_SMALL_RIGHT_TOP;
 				}
 				else {
 					aniId = ID_ANI_FPP_SMALL_LEFT_TOP;
 				}
-			}*/
+			}
 		}
 	}
 

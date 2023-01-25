@@ -71,6 +71,7 @@ public:
 
 	~CGameObject();
 
+	int model = 0;
 	int objType = 0;
 
 	static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }
@@ -84,5 +85,5 @@ public:
 	void SetDirectionX(int nx) { this->nx = nx; }
 	void SetDirectionY(int ny) { this->ny = ny; }
 
-	void SetType(int type) { this->objType = type; }
+	void SetType(int type) { this->model = type; }
 };

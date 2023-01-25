@@ -109,7 +109,7 @@ piranhaPlant.txt
 2	528	369	1
 ##### PIRANHA PLANT 8 ######
 
-8	1800	360
+#8	1800	360
 
 
 ##### FIRE PIRANHA PLANT 9 ######
