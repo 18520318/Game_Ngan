@@ -11,6 +11,7 @@
 #include "BGBlock.h"
 #include "QuestionBrick.h"
 #include "Leaf.h"
+#include "FirePiranhaPlant.h"
 
 #include "Collision.h"
 
@@ -168,8 +169,12 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithBackgroundBlock(e);
 	else if (dynamic_cast<CQuestionBrick*>(e->obj))
 		OnCollisionWithQuestionBrick(e);
-	else if (dynamic_cast<CQuestionBrick*>(e->obj))
+	else if (dynamic_cast<CLeaf*>(e->obj))
 		OnCollisionWithLeaf(e);
+	else if (dynamic_cast<FirePiranhaPlant*>(e->obj))
+		OnCollisionWithPiranha(e);
+	else if (dynamic_cast<FireBall*>(e->obj))
+		OnCollisionWithFireball(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -201,24 +206,10 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 	else // hit by Goomba
 	{
-		if (untouchable == 0)
+		if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
-			if (goomba->GetState() != GOOMBA_STATE_DIE)
-			{
-				if (level > MARIO_LEVEL_SMALL)
-				{
-					level--;
-					StartUntouchable();
-				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
-					die_start = GetTickCount64();
-				}
-			}
+			SetHurt();
 		}
-		else return;
 	}
 }
 
@@ -255,6 +246,22 @@ void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 	DebugOut(L"-------------------------------------------------------");
 	level = MARIO_LEVEL_RACOON;
 	e->obj->Delete();
+}
+
+void CMario::OnCollisionWithPiranha(LPCOLLISIONEVENT e)
+{
+	if (e->nx != 0 || e->ny != 0) {
+		SetHurt();
+	}
+}
+
+void CMario::OnCollisionWithFireball(LPCOLLISIONEVENT e)
+{
+	FireBall* fireball = dynamic_cast<FireBall*>(e->obj);
+	if (fireball->isEnemyShoot) {
+		fireball->isDeleted = true;
+		SetHurt();
+	}
 }
 
 //
@@ -728,6 +735,23 @@ void CMario::WalkStateUpdate()
 void CMario::JumpStateUpdate()
 {
 	LPGAME game = CGame::GetInstance();
+}
+
+void CMario::SetHurt()
+{
+	if (untouchable == 0){
+		if (level > MARIO_LEVEL_SMALL){
+			level--;
+			StartUntouchable();
+		}
+		else
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
+			die_start = GetTickCount64();
+		}
+	}
+	else return;
 }
 
 void CMario::ShootFire()
