@@ -109,7 +109,7 @@ piranhaPlant.txt
 2	528	369	1
 ##### PIRANHA PLANT 8 ######
 
-#8	1800	360
+8	1800	392
 
 
 ##### FIRE PIRANHA PLANT 9 ######
@@ -119,6 +119,6 @@ MODEL = 1 BIG FIREPIRANHA PLANT
 
 #MODEL = 2 SMALL FIREPIRANHA PLANT
 
-9	1864	343	2
+9	1864	375	2
 [TILEMAP]
 Resources\Tilemap\world1-1.txt

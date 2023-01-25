@@ -82,7 +82,7 @@ void FirePiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void FirePiranhaPlant::Render()
 {
 	int aniId = ID_ANI_FPP_LEFT_BOTTOM;
-	DebugOut(L"[ERROR] Fire Pi ID is %d!\n", GetType());
+	//DebugOut(L"[ERROR] Fire Pi ID is %d!\n", GetType());
 	if (startShoot)
 	{
 		if (isBottom) {
