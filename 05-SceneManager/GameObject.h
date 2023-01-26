@@ -51,7 +51,7 @@ public:
 	float GetVY() { return this->vy; }
 
 	void SetVX(float velo_x) { this->vx = velo_x; }
-	void SetVY(float velo_y) { this->vx = velo_y; }
+	void SetVY(float velo_y) { this->vy = velo_y; }
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {};
