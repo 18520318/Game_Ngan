@@ -8,9 +8,11 @@
 
 #include "debug.h"
 
-#define MARIO_WALKING_SPEED		0.1f
-#define MARIO_RUNNING_SPEED		0.2f
+#define MARIO_WALKING_SPEED		0.007f
+#define MARIO_RUNNING_SPEED		0.01f
 #define MARIO_RUNNING_MAX_SPEED 0.8f
+
+#define MARIO_SKID_ACCELERATION 0.003f
 
 #define MARIO_ACCEL_WALK_X	0.0005f
 #define MARIO_ACCEL_RUN_X	0.0007f
@@ -18,6 +20,10 @@
 #define MARIO_JUMP_SPEED_Y		0.5f
 #define MARIO_JUMP_RUN_SPEED_Y	0.6f
 #define MARIO_JUMP_MAX 0.8f
+#define MAX_FLY_SPEED 333.0f
+
+#define MARIO_RUN_DRAG_FORCE 0.0005f
+#define MARIO_WALK_DRAG_FORCE 0.0002f
 
 #define MARIO_GRAVITY			0.0018f
 
@@ -245,6 +251,9 @@ public:
 	boolean isWalking = false;
 	boolean isRunningMax = false;
 	boolean canFallSlow = false;
+	boolean isSliding = false;
+
+	float drag = 0;
 
 	void SetTail();
 
@@ -275,7 +284,7 @@ public:
 	MarioJumpState jumpState;
 
 	void SitStateUpdate();
-	void WalkStateUpdate();
+	void WalkStateUpdate(DWORD dt);
 	void JumpStateUpdate();
 
 	int direct = 1;

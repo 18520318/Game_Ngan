@@ -119,7 +119,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 
 	SitStateUpdate();
-	WalkStateUpdate();
+	WalkStateUpdate(dt);
+
+	if (isGoThroughBlock) {
+		y -= ADJUST_MARIO_COLLISION_WITH_COLOR_BLOCK;
+		vy = -MARIO_JUMP_SPEED_MAX;
+		isGoThroughBlock = false;
+	}
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -384,12 +390,21 @@ int CMario::GetAniIdBig()
 
 	if (!isOnPlatform)
 	{
+		return ID_ANI_MARIO_IDLE_RIGHT;
 	}
 	else {
+		if (isSliding) {
+			aniId = ID_ANI_MARIO_BRACE_RIGHT;
 
-		/*if (walkState == MarioWalkState::Sit) {
-			aniId = ID_ANI_MARIO_SIT_RIGHT;
-		}*/
+			return aniId;
+		}
+
+		if (vx == 0 && walkState != MarioWalkState::Sit) {
+			aniId = ID_ANI_MARIO_IDLE_RIGHT;
+
+			return aniId;
+		}
+
 		switch (walkState)
 		{
 		case MarioWalkState::Run:
@@ -406,12 +421,11 @@ int CMario::GetAniIdBig()
 			break;
 		}
 
+		if (aniId == -1) aniId = ID_ANI_MARIO_IDLE_RIGHT;
+
+
+		return aniId;
 	}
-
-	if (aniId == -1) aniId = ID_ANI_MARIO_IDLE_RIGHT;
-
-
-	return aniId;
 }
 
 //
@@ -714,22 +728,80 @@ void CMario::SitStateUpdate()
 	}
 }
 
-void CMario::WalkStateUpdate()
+void CMario::WalkStateUpdate(DWORD dt)
 {
 	LPGAME game = CGame::GetInstance();
+	float vx_check = GetVX();
 	if (game->IsKeyDown(DIK_RIGHT) || game->IsKeyDown(DIK_LEFT))
 	{
-		direct = game->IsKeyDown(DIK_RIGHT) ? 1 : -1;
+		
+		int keySign = game->IsKeyDown(DIK_LEFT) ? -1 : 1;
+		//DebugOut(L"Directtt %d \n", keySign);
+
 		if(isOnPlatform) walkState = MarioWalkState::Walk;
+		ax = MARIO_WALKING_SPEED * keySign;
+		float maxSpeed = MARIO_RUNNING_MAX_SPEED;
+
 		if (game->IsKeyDown(DIK_A)) {
 			if (isOnPlatform) {
 				walkState = MarioWalkState::Run;
 			}
+			ax = MARIO_RUNNING_SPEED * keySign;
+			maxSpeed = MARIO_RUNNING_MAX_SPEED;
+		}
+		DebugOut(L"Directtt %f \n", (float)GetVX() * keySign);
+		if (GetVX() * keySign < 0) {
+			isSliding = true;
+			ax = (FLOAT)((game->IsKeyDown(DIK_A) ? MARIO_SKID_ACCELERATION : MARIO_SKID_ACCELERATION * 0.5) * keySign);
+
+			if (!isOnPlatform) {
+				ax = MARIO_SKID_ACCELERATION * keySign * 2;
+			}
+		}
+		//DebugOut(L"[INFO] Current accelerate: %d \n", ax);
+		vx_check += ax * dt;
+		//DebugOut(L"Directtt %f \n", vx_check);
+		float fly_sp = MAX_FLY_SPEED;
+		if (jumpState != MarioJumpState::Idle)
+			maxSpeed = (maxSpeed > fly_sp) ? fly_sp : maxSpeed;//min(maxSpeed, MAX_FLY_SPEED);
+
+		if (abs(GetVX()) > maxSpeed) {
+			int sign = GetVX() < 0 ? -1 : 1;
+			if (abs(GetVX()) - maxSpeed > MARIO_ACCEL_WALK_X * dt) {
+				vx_check -= MARIO_ACCEL_WALK_X * dt * sign;
+			}
+			else {
+				vx_check = maxSpeed * sign;
+			}
+		}
+
+		if (GetVX() * direct >= 0) {
+			isSliding = 0;
+		}
+		direct = vx_check < 0 ? -1 : 1;
+	}
+	else {
+		isSliding = 0;
+
+		if (abs(vx_check) > drag * dt) {
+			int sign = vx_check < 0 ? -1 : 1;
+			vx_check -= drag * dt * sign;
+		}
+		else {
+			vx_check = 0.0f;
+			if (walkState != MarioWalkState::Sit) {
+				walkState = MarioWalkState::Idle;
+			}
 		}
 	}
-	
-	//else
-		//walkState = MarioWalkState::Idle;
+	//DebugOut(L"Directtt %d \n", isSliding);
+	if (walkState != MarioWalkState::Sit) {
+		drag = walkState == MarioWalkState::Run ? MARIO_RUN_DRAG_FORCE : MARIO_WALK_DRAG_FORCE;
+	}
+	drag *= isOnPlatform;
+
+	//SetSpeed(vx_check, vy );
+	vx = vx_check;
 }
 
 void CMario::JumpStateUpdate()
