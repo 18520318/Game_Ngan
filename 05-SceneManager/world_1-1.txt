@@ -7,6 +7,7 @@ brick.txt
 items.txt
 goomba.txt
 piranhaPlant.txt
+pipe.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas. 4: coin
@@ -120,5 +121,15 @@ MODEL = 1 BIG FIREPIRANHA PLANT
 #MODEL = 2 SMALL FIREPIRANHA PLANT
 
 9	1864	375	2
+
+############ PIPE 7 #############
+#model = 1 long pipe
+#model = 2 medium pipe
+
+77	359	385	1
+
+77	1800	392	2
+
+77	1864	385	1
 [TILEMAP]
 Resources\Tilemap\world1-1.txt

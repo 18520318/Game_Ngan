@@ -151,6 +151,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="FirePiranhaPlant.cpp" />
     <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="PiranhaPipe.cpp" />
     <ClCompile Include="PiranhaPlant.cpp" />
     <ClCompile Include="Tail.cpp" />
     <ClCompile Include="debug.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="FirePiranhaPlant.h" />
     <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="PiranhaPipe.h" />
     <ClInclude Include="PiranhaPlant.h" />
     <ClInclude Include="Tail.h" />
     <ClInclude Include="debug.h" />
