@@ -150,6 +150,7 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="FirePiranhaPlant.cpp" />
+    <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="PiranhaPipe.cpp" />
     <ClCompile Include="PiranhaPlant.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="FirePiranhaPlant.h" />
+    <ClInclude Include="Koopas.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="PiranhaPipe.h" />
     <ClInclude Include="PiranhaPlant.h" />
