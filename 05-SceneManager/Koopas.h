@@ -32,6 +32,32 @@
 #define KOOPAS_BBOX_WIDTH 16
 #define KOOPAS_BBOX_HEIGHT 26
 
+#define KOOPAS_WALKING_SPEED 0.02f
+#define KOOPAS_IS_KICKED_SPEED 0.18f
+#define KOOPAS_SPEED_Y_IS_FIRE_ATTACKED 0.4f
+#define KOOPAS_SPEED_Y_IS_TAIL_ATTACKED 0.4f
+#define KOOPAS_SPEED_X_IS_TAIL_ATTACKED 0.05f
+#define KOOPAS_RED_WING_SPEED_X 0.03f
+
+#define KOOPAS_WING_JUMP_SPEED 0.15f
+
+#define KOOPAS_BBOX_HEIGHT_DEFEND 16
+#define ADJUST_POSITION_KOOPAS_HELD 13
+#define KOOPAS_COMBACK_HEIGHT_ADJUST 0.15f
+#define KOOPAS_BOUNCE_SPEED 0.3f
+
+#define KOOPAS_DEFEND_TIMEOUT 8000 // hết thời gian defend ( ra khỏi mai rùa và bắt đầu đi)
+#define KOOPAS_COMBACK_START 6000 //thời gian tính từ lúc defend đến lúc có hiệu ứng comeback
+
+#define KOOPAS_STATE_WALKING 100
+#define KOOPAS_STATE_DEFEND 200
+#define KOOPAS_STATE_IS_KICKED 300
+#define KOOPAS_STATE_UPSIDE 400
+#define KOOPAS_STATE_JUMP 500
+
+#define ADJUST_X_TO_RED_CHANGE_DIRECTION 10
+
+#define KOOPAS_WING_GRAVITY 0.0002f
 class Koopas :
     public CGameObject
 {
@@ -40,6 +66,8 @@ protected:
 	float ay;
 
 	vector<LPGAMEOBJECT> effects;
+
+	int mario_nx;
 
 public:
 	Koopas(float x, float y, int model);
@@ -51,6 +79,21 @@ public:
 	virtual int IsCollidable();
 	virtual int IsBlocking() { return 0; }
 	virtual void OnNoCollision(DWORD dt);
+
+	BOOLEAN isTailAttacked = false;
+	BOOLEAN isHeld;
+	BOOLEAN isDefend;
+	BOOLEAN isKicked;
+	BOOLEAN isComeback;
+	BOOLEAN isUpside;
+
+	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	void OnCollisionWithBackGroundBlock(LPCOLLISIONEVENT e);
+	void OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e);
+
+	virtual void SetState(int state);
+
+	ULONGLONG defend_start;
 
 };
 
