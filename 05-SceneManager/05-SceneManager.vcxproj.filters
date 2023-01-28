@@ -114,6 +114,18 @@
     <ClCompile Include="Koopas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MarioStateSmall.cpp">
+      <Filter>Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioStateBig.cpp">
+      <Filter>Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioStateRacoon.cpp">
+      <Filter>Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseMarioState.cpp">
+      <Filter>Mario</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -220,6 +232,18 @@
     </ClInclude>
     <ClInclude Include="Koopas.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseMarioState.h">
+      <Filter>Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioStateBig.h">
+      <Filter>Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioStateRacoon.h">
+      <Filter>Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioStateSmall.h">
+      <Filter>Mario</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

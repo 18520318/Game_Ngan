@@ -8,9 +8,10 @@
 
 #include "debug.h"
 
-#define MARIO_WALKING_SPEED		0.1f
-#define MARIO_RUNNING_SPEED		0.2f
-#define MARIO_RUNNING_MAX_SPEED 0.8f
+#define MARIO_WALKING_SPEED		0.07f
+#define MARIO_RUNNING_SPEED		0.16f
+#define MARIO_RUNNING_MAX_SPEED 0.16f
+#define MARIO_WALK_MAX_SPEED 0.07f
 
 #define MARIO_ACCEL_WALK_X	0.0005f
 #define MARIO_ACCEL_RUN_X	0.0007f
@@ -178,17 +179,26 @@
 
 #define POSITION_Y_OF_TAIL_MARIO 18
 
+#define MAX_FLY_SPEED 333.0f
+
+#define MARIO_RUN_DRAG_FORCE 0.0005f
+#define MARIO_WALK_DRAG_FORCE 0.0002f
+
+#define MARIO_SKID_ACCELERATION 0.001f
+
+class BaseMarioState;
+
 class CMario : public CGameObject
 {
-	BOOLEAN isSitting;
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
 
+	BaseMarioState* stateHandler;
+
 	int level; 
 	int untouchable; 
 	ULONGLONG untouchable_start;
-	BOOLEAN isOnPlatform;
 	int coin; 
 
 	BOOLEAN isGoThroughBlock = false;
@@ -212,23 +222,7 @@ public:
 	CTail* tail;
 
 	boolean isShootingFire;
-	CMario(float x, float y) : CGameObject(x, y)
-	{
-		isSitting = false;
-		maxVx = 0.0f;
-		ax = 0.0f;
-		ay = MARIO_GRAVITY; 
-
-		level = MARIO_LEVEL_BIG;
-		untouchable = 0;
-		untouchable_start = -1;
-		isOnPlatform = false;
-		coin = 0;
-		isShootingFire = false;
-		this->x = x;
-		this->y = y;
-		tail = new CTail(x, y);
-	}
+	CMario(float x, float y);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
@@ -245,6 +239,7 @@ public:
 	boolean isWalking = false;
 	boolean isRunningMax = false;
 	boolean canFallSlow = false;
+	BOOLEAN isSitting;
 
 	void SetTail();
 
@@ -263,6 +258,9 @@ public:
 	int GetCoin() { return coin; }
 	void SetCoin(int _coin) { coin = _coin; }
 
+	BaseMarioState* GetStateHandler();
+	void SetStateHalder(BaseMarioState* handler);
+
 	//Countdown time
 	ULONGLONG attack_start = -1;
 	ULONGLONG transform_start = -1;
@@ -275,10 +273,22 @@ public:
 	MarioJumpState jumpState;
 
 	void SitStateUpdate();
-	void WalkStateUpdate();
+	void WalkStateUpdate(DWORD dt);
 	void JumpStateUpdate();
 
 	int direct = 1;
 
 	void SetHurt();
+
+	boolean isSliding = false;
+	BOOLEAN isOnPlatform;
+
+	float drag = 0;
+
+
+	void SetAX(float acc_x) { this->ax = acc_x; }
+	void SetAY(float acc_y) { this->ay = acc_y; }
+
+	float GetAX() { return this->ax; }
+	float GetAY() { return this->ay; }
 };
