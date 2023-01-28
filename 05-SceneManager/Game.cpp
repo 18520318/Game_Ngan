@@ -409,7 +409,7 @@ void CGame::ProcessKeyboard()
 		}
 	}
 
-	keyHandler->KeyState((BYTE*)&keyStates);
+	//keyHandler->KeyState((BYTE*)&keyStates);
 
 	// Collect all buffered events
 	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
@@ -419,6 +419,10 @@ void CGame::ProcessKeyboard()
 		DebugOut(L"[ERROR] DINPUT::GetDeviceData failed. Error: %d\n", hr);
 		return;
 	}
+	for (int i = 0; i < KEYBOARD_STATE_SIZE; i++)
+	{
+		keyPressed[i] = keyRelease[i] = 0;
+	}
 
 	// Scan through all buffered events, check if the key is pressed or released
 	for (DWORD i = 0; i < dwElements; i++)
@@ -426,9 +430,11 @@ void CGame::ProcessKeyboard()
 		int KeyCode = keyEvents[i].dwOfs;
 		int KeyState = keyEvents[i].dwData;
 		if ((KeyState & 0x80) > 0)
-			keyHandler->OnKeyDown(KeyCode);
+			//keyHandler->OnKeyDown(KeyCode);
+			keyPressed[KeyCode] = 1;
 		else
-			keyHandler->OnKeyUp(KeyCode);
+			//keyHandler->OnKeyUp(KeyCode);
+			keyRelease[KeyCode] = 1;
 	}
 }
 
