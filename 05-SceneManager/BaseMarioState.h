@@ -36,5 +36,6 @@ public:
 	float MARIO_HIGH_JUMP_HEIGHT = 216 / 3;
 	float MARIO_SUPER_JUMP_HEIGHT = 300 / 3;
 	float MARIO_SUPER_PUSH_FORCE = 0.632f / 3;
+	float MARIO_CROUCH_DRAG_FORCE = 0.0008766f / 3;
 };
 

@@ -21,9 +21,17 @@ void BaseMarioState::WalkUpdate(DWORD dt)
 {
 	CGame* game = CGame::GetInstance();
 	float vx_check = mario->GetVX();
+	if (game->IsKeyDown(DIK_DOWN)) {
+		if (mario->jumpState == MarioJumpState::Idle) {
+			mario->walkState = MarioWalkState::Sit;
+			mario->drag = MARIO_CROUCH_DRAG_FORCE;
+		}
+	}
+	if (game->IsKeyReleased(DIK_DOWN) && mario->walkState == MarioWalkState::Sit) {
+		mario->walkState = MarioWalkState::Idle;
+	}
 	if (game->IsKeyDown(DIK_RIGHT) || game->IsKeyDown(DIK_LEFT))
 	{
-		//direct = game->IsKeyDown(DIK_RIGHT) ? 1 : -1;
 		int keySign = game->IsKeyDown(DIK_LEFT) ? -1 : 1;
 		//DebugOut(L"Directtt %d \n", keySign);
 
@@ -51,10 +59,11 @@ void BaseMarioState::WalkUpdate(DWORD dt)
 		vx_check += mario->GetAX() * dt;
 		//DebugOut(L"Directtt %f \n", vx_check);
 		float fly_sp = MAX_FLY_SPEED;
-		if (mario->jumpState != MarioJumpState::Idle)
+		if (mario->jumpState != MarioJumpState::Idle) {
 			maxSpeed = (maxSpeed > fly_sp) ? fly_sp : maxSpeed;//min(maxSpeed, MAX_FLY_SPEED);
+		}
 
-		if (abs(mario->GetVX()) > maxSpeed) {
+		if (abs(vx_check) > maxSpeed) {
 			int sign = mario->GetVX() < 0 ? -1 : 1;
 			if (abs(mario->GetVX()) - maxSpeed > MARIO_ACCEL_WALK_X * dt) {
 				vx_check -= MARIO_ACCEL_WALK_X * dt * sign;

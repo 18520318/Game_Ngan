@@ -282,106 +282,6 @@ int CMario::GetAniIdSmall()
 
 
 //
-// Get animdation ID for big Mario
-//
-int CMario::GetAniIdBig()
-{
-	int aniId = -1;
-	//if (!isOnPlatform)
-	//{
-	//	if (abs(ax) == MARIO_ACCEL_RUN_X)
-	//	{
-	//		if (nx >= 0)
-	//			aniId = ID_ANI_MARIO_JUMP_RUN_RIGHT;
-	//		else
-	//			aniId = ID_ANI_MARIO_JUMP_RUN_LEFT;
-	//	}
-	//	else
-	//	{
-	//		if (nx >= 0)
-	//			aniId = ID_ANI_MARIO_JUMP_WALK_RIGHT;
-	//		else
-	//			aniId = ID_ANI_MARIO_JUMP_WALK_LEFT;
-	//	}
-	//}
-	//else
-	//	if (isSitting)
-	//	{
-	//		if (nx > 0)
-	//			aniId = ID_ANI_MARIO_SIT_RIGHT;
-	//		else
-	//			aniId = ID_ANI_MARIO_SIT_LEFT;
-	//	}
-	//	else
-	//		if (vx == 0)
-	//		{
-	//			if (nx > 0) aniId = ID_ANI_MARIO_IDLE_RIGHT;
-	//			else aniId = ID_ANI_MARIO_IDLE_LEFT;
-	//		}
-	//		else if (vx > 0)
-	//		{
-	//			if (ax < 0)
-	//				aniId = ID_ANI_MARIO_BRACE_RIGHT;
-	//			else if (ax == MARIO_ACCEL_RUN_X)
-	//				aniId = ID_ANI_MARIO_RUNNING_RIGHT;
-	//			else if (ax == MARIO_ACCEL_WALK_X)
-	//				aniId = ID_ANI_MARIO_WALKING_RIGHT;
-	//		}
-	//		else // vx < 0
-	//		{
-	//			if (ax > 0)
-	//				aniId = ID_ANI_MARIO_BRACE_LEFT;
-	//			else if (ax == -MARIO_ACCEL_RUN_X)
-	//				aniId = ID_ANI_MARIO_RUNNING_LEFT;
-	//			else if (ax == -MARIO_ACCEL_WALK_X)
-	//				aniId = ID_ANI_MARIO_WALKING_LEFT;
-	//		}
-
-	if (!isOnPlatform)
-	{
-	}
-	else {
-
-		if (isSliding) {
-			aniId = ID_ANI_MARIO_BRACE_RIGHT;
-
-			return aniId;
-		}
-
-		if (vx == 0 && walkState != MarioWalkState::Sit) {
-			aniId = ID_ANI_MARIO_IDLE_RIGHT;
-
-			return aniId;
-		}
-
-		/*if (walkState == MarioWalkState::Sit) {
-			aniId = ID_ANI_MARIO_SIT_RIGHT;
-		}*/
-		switch (walkState)
-		{
-		case MarioWalkState::Run:
-			aniId = ID_ANI_MARIO_RUNNING_RIGHT;
-			break;
-		case MarioWalkState::Walk:
-			aniId = ID_ANI_MARIO_WALKING_RIGHT;
-			break;
-		case MarioWalkState::Sit:
-			aniId = ID_ANI_MARIO_SIT_RIGHT;
-			break;
-		default:
-			aniId = ID_ANI_MARIO_IDLE_RIGHT;
-			break;
-		}
-
-	}
-
-	if (aniId == -1) aniId = ID_ANI_MARIO_IDLE_RIGHT;
-
-
-	return aniId;
-}
-
-//
 // Get animation ID for Fire Mario
 //
 int CMario::GetAniIdFire()
@@ -518,7 +418,7 @@ int CMario::GetAniIdRacoon()
 void CMario::Render()
 {
 	stateHandler->Render();
-	RenderBoundingBox();
+	//RenderBoundingBox();
 
 	//CAnimations* animations = CAnimations::GetInstance();
 	//int aniId = -1;
@@ -539,12 +439,12 @@ void CMario::Render()
 	//}
 	//animations->Get(aniId)->Render(x, y);
 
-	//if (tail) {
-	//	tail->Render();
-	//}
+	if (tail) {
+		tail->Render();
+	}
 
 	//
-	//DebugOutTitle(L"Coins: %d", coin);
+	DebugOutTitle(L"Coins: %d", coin);
 }
 
 void CMario::SetState(int state)
