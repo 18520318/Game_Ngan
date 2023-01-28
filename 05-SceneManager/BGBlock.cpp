@@ -13,3 +13,11 @@ void CBGBlock::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y - height / 2;
 	b = t + height;
 }
+
+int CBGBlock::IsBlocking(float nx, float ny, CGameObject* target)
+{
+	if (ny < 0) {
+		return 1;
+	}
+	return 0;
+}

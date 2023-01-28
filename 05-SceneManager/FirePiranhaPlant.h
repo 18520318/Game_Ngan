@@ -83,5 +83,7 @@ public:
 	BOOLEAN isBottom = false, isFar = false;
 
 	void GetMarioRangeCurrent();
+
+	virtual int IsBlocking(float nx, float ny, CGameObject* target);
 };
 

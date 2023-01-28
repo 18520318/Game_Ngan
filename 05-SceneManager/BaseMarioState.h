@@ -25,5 +25,16 @@ public:
 	virtual void warpUpdate(DWORD dt);
 
 	virtual void Render() = 0;
+
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+
+	float MARIO_MIN_JUMP_HEIGHT = 80 / 3;
+	float MARIO_JUMP_HEIGHT = 97 / 3;
+	float MARIO_PUSH_FORCE = 0.432f / 3;
+
+	float MARIO_MIN_HIGH_JUMP_HEIGHT = 97 / 3;
+	float MARIO_HIGH_JUMP_HEIGHT = 216 / 3;
+	float MARIO_SUPER_JUMP_HEIGHT = 300 / 3;
+	float MARIO_SUPER_PUSH_FORCE = 0.632f / 3;
 };
 

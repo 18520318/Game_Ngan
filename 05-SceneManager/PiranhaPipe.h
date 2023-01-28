@@ -18,5 +18,7 @@ public:
 
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual int IsBlocking() { return 1; }
+
+	virtual int IsBlocking(float nx, float ny, CGameObject* target) { return 1; };
 };
 

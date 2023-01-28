@@ -28,6 +28,11 @@ void CPlatform::RenderBoundingBox()
 	CGame::GetInstance()->Draw(xx - cx, y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
 }
 
+int CPlatform::IsBlocking(float nx, float ny, CGameObject* target)
+{
+	return 1;
+}
+
 void CPlatform::Render()
 {
 	/*if (this->length <= 0) return; 

@@ -287,3 +287,8 @@ void FirePiranhaPlant::GetMarioRangeCurrent()
 		}
 	}
 }
+
+int FirePiranhaPlant::IsBlocking(float nx, float ny, CGameObject* target)
+{
+	return 0;
+}

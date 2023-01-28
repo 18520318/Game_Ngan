@@ -39,5 +39,7 @@ public:
     virtual void OnNoCollision(DWORD dt);
 
     virtual void SetState(int state);
+
+    virtual int IsBlocking(float nx, float ny, CGameObject* target) { return 1; };
 };
 

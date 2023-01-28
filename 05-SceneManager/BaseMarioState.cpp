@@ -13,6 +13,8 @@ void BaseMarioState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	JumpUpdate(dt);
 	holdingShellUpdate(dt);
 	warpUpdate(dt);
+
+	DebugOut(L"vy: %f\n", mario->GetVY());
 }
 
 void BaseMarioState::WalkUpdate(DWORD dt)
@@ -92,7 +94,68 @@ void BaseMarioState::WalkUpdate(DWORD dt)
 
 void BaseMarioState::JumpUpdate(DWORD dt)
 {
+	float vy_temp = mario->GetVY();
 	
+	CGame* game = CGame::GetInstance();
+	float x, y;
+	mario->GetPosition(x, y);
+
+	if (mario->isOnPlatform) {
+		mario->jumpState = MarioJumpState::Idle;
+
+		if (game->IsKeyPressed(DIK_S)) {
+			mario->jumpState = MarioJumpState::Jump;
+			mario->isOnPlatform = false;
+			mario->_jumpStartHeight = y;
+
+			if (mario->powerMeter >= PMETER_MAX) {
+				mario->jumpState = MarioJumpState::Fly;
+			}
+		}
+	}
+
+	float jumpHeight = MARIO_JUMP_HEIGHT;
+	float minJumpHeight = MARIO_MIN_JUMP_HEIGHT;
+	float height = 0;
+
+	switch (mario->jumpState)
+	{
+	case MarioJumpState::Fly:
+		height = abs(mario->_jumpStartHeight - y - vy_temp * dt);
+		minJumpHeight = MARIO_MIN_HIGH_JUMP_HEIGHT;
+
+		if (height < minJumpHeight || (height < MARIO_SUPER_JUMP_HEIGHT && game->IsKeyDown(DIK_S))) {
+			vy_temp = -MARIO_SUPER_PUSH_FORCE - MARIO_GRAVITY * dt;
+		}
+		else {
+			mario->jumpState = MarioJumpState::Float;
+			vy_temp = -MARIO_SUPER_PUSH_FORCE / 2;
+		}
+		break;
+	case MarioJumpState::HighJump:
+		jumpHeight = MARIO_HIGH_JUMP_HEIGHT;
+		minJumpHeight = MARIO_MIN_HIGH_JUMP_HEIGHT;
+	case MarioJumpState::Jump:
+		height = abs(mario->_jumpStartHeight - y - vy_temp * dt);
+
+		if (height < minJumpHeight || (height < jumpHeight && game->IsKeyDown(DIK_S))) {
+			vy_temp = -MARIO_PUSH_FORCE - MARIO_GRAVITY * dt;
+		}
+		else {
+			if (game->IsKeyDown(DIK_S) && mario->jumpState == MarioJumpState::Jump) {
+				mario->jumpState = MarioJumpState::HighJump;
+			}
+			else {
+				mario->jumpState = MarioJumpState::Fall;
+				vy_temp = -MARIO_PUSH_FORCE / 2;
+			}
+		}
+		break;
+	case MarioJumpState::Float:
+	case MarioJumpState::Fall:
+		break;
+	}
+	mario->SetVY(vy_temp);
 }
 
 void BaseMarioState::holdingShellUpdate(DWORD dt)
@@ -101,4 +164,22 @@ void BaseMarioState::holdingShellUpdate(DWORD dt)
 
 void BaseMarioState::warpUpdate(DWORD dt)
 {
+}
+
+void BaseMarioState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+{
+	if (mario->walkState == MarioWalkState::Sit)
+	{
+		left = mario->GetX() - MARIO_BIG_SITTING_BBOX_WIDTH / 2;
+		top = mario->GetY() - MARIO_BIG_SITTING_BBOX_HEIGHT / 2;
+		right = left + MARIO_BIG_SITTING_BBOX_WIDTH;
+		bottom = top + MARIO_BIG_SITTING_BBOX_HEIGHT;
+	}
+	else
+	{
+		left = mario->GetX() - MARIO_BIG_BBOX_WIDTH / 2;
+		right = left + MARIO_BIG_BBOX_WIDTH;
+		top = mario->GetY() - MARIO_BIG_BBOX_HEIGHT / 2;
+		bottom = top + MARIO_BIG_BBOX_HEIGHT;
+	}
 }

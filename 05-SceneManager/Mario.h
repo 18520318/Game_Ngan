@@ -9,8 +9,8 @@
 #include "debug.h"
 
 #define MARIO_WALKING_SPEED		0.07f
-#define MARIO_RUNNING_SPEED		0.16f
-#define MARIO_RUNNING_MAX_SPEED 0.16f
+#define MARIO_RUNNING_SPEED		0.1f
+#define MARIO_RUNNING_MAX_SPEED 0.1f
 #define MARIO_WALK_MAX_SPEED 0.07f
 
 #define MARIO_ACCEL_WALK_X	0.0005f
@@ -186,6 +186,8 @@
 
 #define MARIO_SKID_ACCELERATION 0.001f
 
+#define PMETER_MAX 7
+
 class BaseMarioState;
 
 class CMario : public CGameObject
@@ -284,6 +286,8 @@ public:
 	BOOLEAN isOnPlatform;
 
 	float drag = 0;
+	float _jumpStartHeight = 0;
+	float powerMeter = 0;
 
 
 	void SetAX(float acc_x) { this->ax = acc_x; }

@@ -43,28 +43,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	float l, t, r, b;
 	this->GetBoundingBox(l, t, r, b);
 
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-
-	//if (abs(vx) > abs(maxVx)) vx = maxVx;
-	//if (x <= MARIO_BIG_BBOX_WIDTH) {
-	//	x = MARIO_BIG_BBOX_WIDTH;
-	//}
-	//if (x + MARIO_BIG_BBOX_WIDTH >= scene->map->GetMapWidth()) {
-	//	x = (float)(scene->map->GetMapWidth() - MARIO_BIG_BBOX_WIDTH);
-	//}
 	LPGAME game = CGame::GetInstance();
 	if (game->IsKeyPressed(DIK_1)) {
-//		SetLevel(MARIO_LEVEL_SMALL);
 		this->stateHandler = new MarioStateSmall(this);
 	}
 	if (game->IsKeyPressed(DIK_2)) {
-//		SetLevel(MARIO_LEVEL_BIG);
 		this->stateHandler = new MarioStateBig(this);
 	}
 	if (game->IsKeyPressed(DIK_3)) {
-//		SetLevel(MARIO_LEVEL_RACOON);
 		this->stateHandler = new MarioStateRacoon(this);
 	}
+
+	if (this->x < 0) {
+		this->x = 0;
+	}
+
+	this->vy += ay * dt;
 
 	stateHandler->Update(dt, coObjects);
 
@@ -77,7 +71,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		this->y += b - finalb;
 	}
 
-	isOnPlatform = true;
+	//isOnPlatform = true;
 }
 
 void CMario::SetTail()
@@ -104,13 +98,18 @@ void CMario::OnNoCollision(DWORD dt)
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (e->ny != 0 && e->obj->IsBlocking())
+	if (e->ny != 0 && e->obj->IsBlocking(e->nx, e->ny, this))
 	{
 		vy = 0;
-		if (e->ny < 0) isOnPlatform = true;
+		if (e->ny < 0) {
+			isOnPlatform = true;
+		}
+		else {
+			vy = 0.000001f;
+			this->jumpState = MarioJumpState::Fall;
+		}
 	}
-	else 
-	if (e->nx != 0 && e->obj->IsBlocking())
+	if (e->nx != 0 && e->obj->IsBlocking(e->nx, e->ny, this))
 	{
 		vx = 0;
 	}
@@ -641,7 +640,7 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (level>=MARIO_LEVEL_BIG)
+	/*if (level>=MARIO_LEVEL_BIG)
 	{
 		if (walkState == MarioWalkState::Sit)
 		{
@@ -670,7 +669,8 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 		top = y - MARIO_SMALL_BBOX_HEIGHT/2;
 		right = left + MARIO_SMALL_BBOX_WIDTH;
 		bottom = top + MARIO_SMALL_BBOX_HEIGHT;
-	}
+	}*/
+	stateHandler->GetBoundingBox(left, top, right, bottom);
 }
 
 BaseMarioState* CMario::GetStateHandler()

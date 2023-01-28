@@ -52,7 +52,7 @@ public:
 	float GetVY() { return this->vy; }
 
 	void SetVX(float velo_x) { this->vx = velo_x; }
-	void SetVY(float velo_y) { this->vx = velo_y; }
+	void SetVY(float velo_y) { this->vy = velo_y; }
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {};
@@ -71,7 +71,7 @@ public:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e) {};
 	
 	// Is this object blocking other object? If YES, collision framework will automatically push the other object
-	virtual int IsBlocking() { return 1; }
+	virtual int IsBlocking(float nx, float ny, CGameObject* target) { return 0; }
 
 	~CGameObject();
 

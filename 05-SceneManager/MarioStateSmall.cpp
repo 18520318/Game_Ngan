@@ -69,3 +69,11 @@ void MarioStateSmall::Render()
 
 	animations->Get(aniId)->Render(mario->GetX(), mario->GetY());
 }
+
+void MarioStateSmall::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+{
+	left = mario->GetX() - MARIO_SMALL_BBOX_WIDTH / 2;
+	top = mario->GetY() - MARIO_SMALL_BBOX_HEIGHT / 2;
+	right = left + MARIO_SMALL_BBOX_WIDTH;
+	bottom = top + MARIO_SMALL_BBOX_HEIGHT;
+}
