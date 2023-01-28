@@ -11,53 +11,62 @@ void MarioStateSmall::Render()
 	CAnimations* animations = CAnimations::GetInstance();
 	int aniId = -1;
 
-	float ax = mario->GetAX();
-	float vx = mario->GetVX();
-	int nx = mario->GetCurrentDirection();
 
 	if (!mario->isOnPlatform)
 	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		//aniId = ID_ANI_MARIO_BRACE_RIGHT;
+		switch (mario->jumpState)
 		{
-			if (nx >= 0)
-				aniId = ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT;
-			else
-				aniId = ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT;
-		}
-		else
-		{
-			if (nx >= 0)
-				aniId = ID_ANI_MARIO_SMALL_JUMP_WALK_RIGHT;
-			else
-				aniId = ID_ANI_MARIO_SMALL_JUMP_WALK_LEFT;
+		case MarioJumpState::Fly:
+			aniId = ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT;
+			break;
+		case MarioJumpState::Float:
+			aniId = ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT;
+			break;
+		case MarioJumpState::Fall:
+			aniId = ID_ANI_MARIO_SMALL_JUMP_WALK_RIGHT;
+			break;
+		case MarioJumpState::Jump:
+			aniId = ID_ANI_MARIO_SMALL_JUMP_WALK_RIGHT;
+			break;
+		case MarioJumpState::HighJump:
+			aniId = ID_ANI_MARIO_SMALL_JUMP_WALK_RIGHT;
+			break;
+		default:
+			break;
 		}
 	}
-		else
-			if (vx == 0)
+
+
+	else if (mario->isSliding) {
+		aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
+	}
+	else {
+
+		if (mario->GetVX() == 0 && mario->walkState != MarioWalkState::Sit) {
+			aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
+		}
+
+		else {
+			switch (mario->walkState)
 			{
-				if (nx > 0) aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
-				else aniId = ID_ANI_MARIO_SMALL_IDLE_LEFT;
+			case MarioWalkState::Run:
+				aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
+				break;
+			case MarioWalkState::Walk:
+				aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
+				break;
+			case MarioWalkState::Sit:
+			default:
+				aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
+				break;
 			}
-			else if (vx > 0)
-			{
-				if (ax < 0)
-					aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
-			}
-			else // vx < 0
-			{
-				if (ax > 0)
-					aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
-			}
+		}
+
+	}
 
 	if (aniId == -1) aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
+	if (mario->direct < 0) aniId += 1;
 
 	animations->Get(aniId)->Render(mario->GetX(), mario->GetY());
 }

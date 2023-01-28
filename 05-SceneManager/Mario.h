@@ -195,8 +195,6 @@ class CMario : public CGameObject
 	void OnCollisionWithPiranha(LPCOLLISIONEVENT e);
 	void OnCollisionWithFireball(LPCOLLISIONEVENT e);
 
-	int GetAniIdSmall();
-	int GetAniIdFire();
 	int GetAniIdRacoon();
 
 public:
@@ -241,7 +239,6 @@ public:
 	void SetCoin(int _coin) { coin = _coin; }
 
 	BaseMarioState* GetStateHandler();
-	void SetStateHalder(BaseMarioState* handler);
 
 	//Countdown time
 	ULONGLONG attack_start = -1;

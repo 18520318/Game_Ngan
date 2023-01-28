@@ -14,7 +14,7 @@ void BaseMarioState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	holdingShellUpdate(dt);
 	warpUpdate(dt);
 
-	DebugOut(L"vy: %f\n", mario->GetVY());
+	//DebugOut(L"vy: %f\n", mario->GetVY());
 }
 
 void BaseMarioState::WalkUpdate(DWORD dt)
@@ -72,14 +72,12 @@ void BaseMarioState::WalkUpdate(DWORD dt)
 				vx_check = maxSpeed * sign;
 			}
 		}
-		if (mario->GetVX() * mario->direct >= 0) {
+		mario->direct = vx_check < 0 ? -1 : 1;
+		if (mario->GetVX() * keySign >= 0) {
 			mario->isSliding = 0;
 		}
-		mario->direct = vx_check < 0 ? -1 : 1;
 	}
 	else {
-		//else			isSliding = 0;
-			//walkState = MarioWalkState::Idle;	
 		if (abs(vx_check) > mario->drag * dt) {
 			int sign = vx_check < 0 ? -1 : 1;
 			vx_check -= mario->drag * dt * sign;
