@@ -10,10 +10,13 @@ BaseMarioState::BaseMarioState(CMario* mario)
 void BaseMarioState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	WalkUpdate(dt);
+	PowerMeterUpdate(dt);
 	JumpUpdate(dt);
+	AttackUpdate(dt);
 	holdingShellUpdate(dt);
 	warpUpdate(dt);
 
+	CCollision::GetInstance()->Process(mario, dt, coObjects);
 	//DebugOut(L"vy: %f\n", mario->GetVY());
 }
 
@@ -170,6 +173,22 @@ void BaseMarioState::holdingShellUpdate(DWORD dt)
 }
 
 void BaseMarioState::warpUpdate(DWORD dt)
+{
+}
+
+void BaseMarioState::PowerMeterUpdate(DWORD dt)
+{
+	float vx = mario->GetVX();
+
+	float maxRun = abs(vx) > MARIO_RUNNING_SPEED * 0.85f;
+
+	if (maxRun && mario->isOnPlatform)
+		mario->powerMeter = max(0.0f, min(mario->powerMeter + PMETER_UP_STEP * dt, PMETER_MAX + 1));
+	else if (mario->powerMeter > 0)
+		mario->powerMeter = max(0.0f, min(mario->powerMeter - PMETER_DOWN_STEP * dt, PMETER_MAX));
+}
+
+void BaseMarioState::AttackUpdate(DWORD dt)
 {
 }
 

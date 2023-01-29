@@ -4,6 +4,11 @@ MarioStateRacoon::MarioStateRacoon(CMario* mario) : BaseMarioState(mario)
 {
 }
 
+void MarioStateRacoon::JumpUpdate(DWORD dt)
+{
+	
+}
+
 void MarioStateRacoon::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
@@ -18,16 +23,16 @@ void MarioStateRacoon::Render()
 				aniId = ID_ANI_RACOON_MARIO_JUMP_RUN_RIGHT;
 				break;
 			case MarioJumpState::Float:
-				aniId = ID_ANI_MARIO_FLY;
+				aniId = ID_ANI_RACOON_MARIO_FLYING_RIGHT;
 				break;
 			case MarioJumpState::Fall:
-				aniId = ID_ANI_MARIO_JUMP_WALK;
+				aniId = ID_ANI_RACOON_MARIO_JUMP_WALK_RIGHT;
 				break;
 			case MarioJumpState::Jump:
-				aniId = ID_ANI_MARIO_JUMP_WALK;
+				aniId = ID_ANI_RACOON_MARIO_JUMP_WALK_RIGHT;
 				break;
 			case MarioJumpState::HighJump:
-				aniId = ID_ANI_MARIO_JUMP_WALK;
+				aniId = ID_ANI_RACOON_MARIO_JUMP_WALK_RIGHT;
 		default:
 			break;
 		}

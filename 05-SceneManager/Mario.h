@@ -103,6 +103,9 @@
 #define ID_ANI_RACOON_MARIO_ATTACK_FROM_LEFT 3200
 #define ID_ANI_RACOON_MARIO_ATTACK_FROM_RIGHT 3201
 
+#define ID_ANI_RACOON_MARIO_FLYING_RIGHT 3300
+#define ID_ANI_RACOON_MARIO_FLYING_LEFT 3301
+
 #define ID_ANI_MARIO_DIE 999
 
 // SMALL MARIO
@@ -264,7 +267,6 @@ public:
 
 	float drag = 0;
 	float _jumpStartHeight = 0;
-	float powerMeter = 0;
 
 
 	void SetAX(float acc_x) { this->ax = acc_x; }

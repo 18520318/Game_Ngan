@@ -34,6 +34,10 @@ class MarioStateRacoon :
 public:
     MarioStateRacoon(CMario* mario);
 
+    virtual void JumpUpdate(DWORD dt);
+    virtual void PowerMeterUpdate(DWORD dt);
+    virtual void AttackUpdate(DWORD dt);
+
     virtual void Render();
 };
 

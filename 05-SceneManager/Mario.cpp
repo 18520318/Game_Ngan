@@ -62,7 +62,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	stateHandler->Update(dt, coObjects);
 
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+	
 
 	float finall, finalt, finalr, finalb;
 	this->GetBoundingBox(finall, finalt, finalr, finalb);

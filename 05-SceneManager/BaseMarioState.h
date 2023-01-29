@@ -24,6 +24,10 @@ public:
 
 	virtual void warpUpdate(DWORD dt);
 
+	virtual void PowerMeterUpdate(DWORD dt);
+
+	virtual void AttackUpdate(DWORD dt);
+
 	virtual void Render() = 0;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -37,5 +41,8 @@ public:
 	float MARIO_SUPER_JUMP_HEIGHT = 300 / 3;
 	float MARIO_SUPER_PUSH_FORCE = 0.632f / 3;
 	float MARIO_CROUCH_DRAG_FORCE = 0.0008766f / 3;
+
+	float PMETER_UP_STEP = 0.008f;
+	float PMETER_DOWN_STEP = 0.0016f;
 };
 
