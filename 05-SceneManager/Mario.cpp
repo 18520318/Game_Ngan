@@ -220,96 +220,9 @@ void CMario::OnCollisionWithFireball(LPCOLLISIONEVENT e)
 }
 
 
-//
-// Get animation ID for Raccoon Mario
-//
-int CMario::GetAniIdRacoon()
-{
-	int aniId = -1;
-	if (!isOnPlatform)
-	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
-		{
-			if (nx >= 0)
-				aniId = ID_ANI_RACOON_MARIO_JUMP_RUN_RIGHT;
-			else
-				aniId = ID_ANI_RACOON_MARIO_JUMP_RUN_LEFT;
-		}
-		else
-		{
-			if (nx >= 0)
-				aniId = ID_ANI_RACOON_MARIO_JUMP_WALK_RIGHT;
-			else
-				aniId = ID_ANI_RACOON_MARIO_JUMP_WALK_LEFT;
-		}
-	}
-	else
-		if (isSitting)
-		{
-			if (nx > 0)
-				aniId = ID_ANI_RACOON_MARIO_SIT_RIGHT;
-			else
-				aniId = ID_ANI_RACOON_MARIO_SIT_LEFT;
-		}
-		else if (IsAttack) {
-			if (nx > 0) {
-				aniId = ID_ANI_RACOON_MARIO_ATTACK_FROM_LEFT;
-			}
-			else
-				aniId = ID_ANI_RACOON_MARIO_ATTACK_FROM_RIGHT;
-		}
-		else
-			if (vx == 0)
-			{
-				if (nx > 0) aniId = ID_ANI_RACOON_MARIO_IDLE_RIGHT;
-				else aniId = ID_ANI_RACOON_MARIO_IDLE_LEFT;
-			}
-			else if (vx > 0)
-			{
-				if (ax < 0)
-					aniId = ID_ANI_RACOON_MARIO_BRACE_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_RACOON_MARIO_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_RACOON_MARIO_WALKING_RIGHT;
-			}
-			else // vx < 0
-			{
-				if (ax > 0)
-					aniId = ID_ANI_RACOON_MARIO_BRACE_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_RACOON_MARIO_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_RACOON_MARIO_WALKING_LEFT;
-			}
-
-	if (aniId == -1) aniId = ID_ANI_RACOON_MARIO_IDLE_RIGHT;
-	return aniId;
-}
-
 void CMario::Render()
 {
 	stateHandler->Render();
-	//RenderBoundingBox();
-
-	//CAnimations* animations = CAnimations::GetInstance();
-	//int aniId = -1;
-
-	//if (state == MARIO_STATE_DIE)
-	//	aniId = ID_ANI_MARIO_DIE;
-	//else if (level == MARIO_LEVEL_BIG)
-	//	aniId = GetAniIdBig();
-	//else if (level == MARIO_LEVEL_SMALL)
-	//	aniId = GetAniIdSmall();
-	//else if (level == MARIO_LEVEL_FIRE)
-	//	aniId = GetAniIdFire();
-	//else if (level == MARIO_LEVEL_RACOON)
-	//	aniId = GetAniIdRacoon();
-
-	//if (direct == -1) {
-	//	aniId += 1;
-	//}
-	//animations->Get(aniId)->Render(x, y);
 
 	if (tail) {
 		tail->Render();
@@ -328,36 +241,6 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	/*if (level>=MARIO_LEVEL_BIG)
-	{
-		if (walkState == MarioWalkState::Sit)
-		{
-			left = x - MARIO_BIG_SITTING_BBOX_WIDTH / 2;
-			top = y - MARIO_BIG_SITTING_BBOX_HEIGHT / 2;
-			right = left + MARIO_BIG_SITTING_BBOX_WIDTH;
-			bottom = top + MARIO_BIG_SITTING_BBOX_HEIGHT;
-		}
-		else 
-		{
-			if (level == MARIO_LEVEL_RACOON) {
-				left = x - MARIO_RACOON_BBOX_WIDTH / 2;
-				right = left + MARIO_RACOON_BBOX_WIDTH;
-			}
-			else {
-				left = x - MARIO_BIG_BBOX_WIDTH / 2;
-				right = left + MARIO_BIG_BBOX_WIDTH;
-			}
-			top = y - MARIO_BIG_BBOX_HEIGHT/2;
-			bottom = top + MARIO_BIG_BBOX_HEIGHT;
-		}
-	}
-	else
-	{
-		left = x - MARIO_SMALL_BBOX_WIDTH/2;
-		top = y - MARIO_SMALL_BBOX_HEIGHT/2;
-		right = left + MARIO_SMALL_BBOX_WIDTH;
-		bottom = top + MARIO_SMALL_BBOX_HEIGHT;
-	}*/
 	stateHandler->GetBoundingBox(left, top, right, bottom);
 }
 
