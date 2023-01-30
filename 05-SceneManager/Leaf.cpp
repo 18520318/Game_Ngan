@@ -72,10 +72,6 @@ void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		OnCollisionWith(e);
 	}
 
-	if (isDeleted) {
-
-	}
-
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -91,8 +87,9 @@ void CLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (e->obj == mario) {
 		//TODO: Score
-		isDeleted = true;
 		mario->SetLevel(MARIO_LEVEL_RACOON);
+		isDeleted = true;
+		
 	}
 }
 

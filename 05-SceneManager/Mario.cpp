@@ -12,6 +12,7 @@
 #include "QuestionBrick.h"
 #include "Leaf.h"
 #include "FirePiranhaPlant.h"
+#include "Koopas.h"
 
 #include "BaseMarioState.h"
 #include "MarioStateSmall.h"
@@ -130,6 +131,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPiranha(e);
 	else if (dynamic_cast<FireBall*>(e->obj))
 		OnCollisionWithFireball(e);
+	else if (dynamic_cast<Koopas*>(e->obj))
+		OnCollisionWithKoopas(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -161,10 +164,10 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 	else // hit by Goomba
 	{
-		if (goomba->GetState() != GOOMBA_STATE_DIE)
-		{
+		//if (goomba->GetState() != GOOMBA_STATE_DIE)
+		//{
 			SetHurt();
-		}
+		//}
 	}
 }
 
@@ -205,9 +208,7 @@ void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithPiranha(LPCOLLISIONEVENT e)
 {
-	if (e->nx != 0 || e->ny != 0) {
-		SetHurt();
-	}
+		SetHurt();	
 }
 
 void CMario::OnCollisionWithFireball(LPCOLLISIONEVENT e)
@@ -215,6 +216,47 @@ void CMario::OnCollisionWithFireball(LPCOLLISIONEVENT e)
 	FireBall* fireball = dynamic_cast<FireBall*>(e->obj);
 	if (fireball->isEnemyShoot) {
 		fireball->isDeleted = true;
+		SetHurt();
+	}
+}
+
+void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
+{
+	Koopas* koopas = dynamic_cast<Koopas*>(e->obj);
+
+	if (e->ny < 0)
+	{
+		if (koopas->GetState() == KOOPAS_STATE_IS_KICKED) {
+			if (koopas->isDefend) {
+				koopas->SetState(KOOPAS_STATE_DEFEND);
+			}
+			else {
+				koopas->SetState(KOOPAS_STATE_UPSIDE);
+			}
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			//SCORE
+		}
+		else if (koopas->GetState() == KOOPAS_STATE_WALKING)
+		{
+			koopas->SetState(KOOPAS_STATE_DEFEND);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			//SCORE
+		}
+		else if (koopas->GetState() == KOOPAS_STATE_JUMP) {
+			koopas->SetState(KOOPAS_STATE_WALKING);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			//SCORE
+		}
+		else if (koopas->GetState() == KOOPAS_STATE_DEFEND || koopas->GetState() == KOOPAS_STATE_UPSIDE)
+		{
+			koopas->SetState(KOOPAS_STATE_IS_KICKED);
+			//SCORE
+		}
+	}
+	else if (e->nx != 0) {
+		SetHurt();
+	}
+	else if (e->ny > 0) {
 		SetHurt();
 	}
 }
@@ -345,7 +387,8 @@ void CMario::SetHurt()
 	if (untouchable == 0){
 		if (level > MARIO_LEVEL_SMALL){
 			level--;
-			StartUntouchable();
+			SetLevel(level);
+			//StartUntouchable();
 		}
 		else
 		{

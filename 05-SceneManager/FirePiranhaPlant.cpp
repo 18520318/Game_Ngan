@@ -198,7 +198,7 @@ void FirePiranhaPlant::ShootFire()
 	FireBall* fireBall = new FireBall(x, y - ADJUST_FPP_SHOOT_FIRE_BALL_HEIGHT);
 	int directionYFireball = 0;
 	fireBall->SetDirectionX(nx);
-
+	fireBall->isEnemyShoot = true;
 	if (isBottom) {
 		fireBall->SetDirectionY(1);
 		if (isFar) {
