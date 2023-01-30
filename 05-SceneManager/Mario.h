@@ -198,7 +198,6 @@ class CMario : public CGameObject
 	void OnCollisionWithPiranha(LPCOLLISIONEVENT e);
 	void OnCollisionWithFireball(LPCOLLISIONEVENT e);
 
-	int GetAniIdRacoon();
 
 public:
 	CGameObject* obj = NULL;

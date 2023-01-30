@@ -126,6 +126,9 @@
     <ClCompile Include="BaseMarioState.cpp">
       <Filter>Mario</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="MarioStateSmall.h">
       <Filter>Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
