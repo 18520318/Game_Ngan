@@ -27,7 +27,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	ax = 0.0f;
 	ay = MARIO_GRAVITY;
 
-	level = MARIO_LEVEL_BIG;
+	level = MARIO_LEVEL_SMALL;
 	untouchable = 0;
 	untouchable_start = -1;
 	isOnPlatform = false;
@@ -45,13 +45,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	LPGAME game = CGame::GetInstance();
 	if (game->IsKeyPressed(DIK_1)) {
-		this->stateHandler = new MarioStateSmall(this);
+		SetLevel(MARIO_LEVEL_SMALL);
 	}
 	if (game->IsKeyPressed(DIK_2)) {
-		this->stateHandler = new MarioStateBig(this);
+		SetLevel(MARIO_LEVEL_BIG);
 	}
 	if (game->IsKeyPressed(DIK_3)) {
-		this->stateHandler = new MarioStateRacoon(this);
+		SetLevel(MARIO_LEVEL_RACOON);
 	}
 
 	if (this->x < 0) {
@@ -376,5 +376,18 @@ void CMario::SetLevel(int l)
 		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 	}
 	level = l;
+
+	switch (l)
+	{
+	case MARIO_LEVEL_SMALL:
+		this->stateHandler = new MarioStateSmall(this);
+		break;
+	case MARIO_LEVEL_BIG:
+		this->stateHandler = new MarioStateBig(this);
+		break;
+	case MARIO_LEVEL_RACOON:
+		this->stateHandler = new MarioStateRacoon(this);
+		break;
+	}
 }
 

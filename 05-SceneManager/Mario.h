@@ -248,7 +248,7 @@ public:
 	ULONGLONG transform_start = -1;
 	ULONGLONG die_start = -1;
 
-	int powerStack = 0;
+	float powerMeter = 0;
 
 	MarioWalkState walkState;
 
