@@ -38,7 +38,7 @@ void MarioStateSmall::Render()
 	}
 
 
-	else if (mario->isSliding) {
+	else if (mario->isSliding && mario->GetVX() != 0) {
 		aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
 	}
 	else {

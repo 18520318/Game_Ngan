@@ -27,7 +27,7 @@ void MarioStateRacoon::JumpUpdate(DWORD dt)
 		}
 	}
 
-	if (game->IsKeyPressed(DIK_S)) {
+	else if (game->IsKeyPressed(DIK_S)) {
 		if (mario->powerMeter >= PMETER_MAX) {
 			mario->jumpState = MarioJumpState::Fly;
 			mario->_jumpStartHeight = y;
@@ -133,10 +133,10 @@ void MarioStateRacoon::Render()
 		switch (mario->jumpState)
 		{
 			case MarioJumpState::Fly:
-				aniId = ID_ANI_RACOON_MARIO_JUMP_RUN_RIGHT;
+				aniId = ID_ANI_RACOON_MARIO_FLYING_RIGHT;//ID_ANI_RACOON_MARIO_JUMP_RUN_RIGHT;
 				break;
 			case MarioJumpState::Float:
-				aniId = ID_ANI_RACOON_MARIO_FLYING_RIGHT;
+				aniId = ID_ANI_RACOON_MARIO_FLOATING_RIGHT;//ID_ANI_RACOON_MARIO_FLYING_RIGHT;
 				break;
 			case MarioJumpState::Fall:
 				aniId = ID_ANI_RACOON_MARIO_JUMP_WALK_RIGHT;
@@ -152,7 +152,7 @@ void MarioStateRacoon::Render()
 	}
 
 
-	else if (mario->isSliding) {
+	else if (mario->isSliding && mario->GetVX() != 0) {
 		aniId = ID_ANI_RACOON_MARIO_BRACE_RIGHT;
 	}
 	else {
