@@ -122,6 +122,23 @@ void MarioStateRacoon::PowerMeterUpdate(DWORD dt)
 	}
 }
 
+void MarioStateRacoon::AttackUpdate(DWORD dt)
+{
+	attackTimer.Update(dt);
+
+	CGame* game = CGame::GetInstance();
+
+	if (game->IsKeyPressed(DIK_A)) {
+		if (attackTimer.GetState() != TimerState::RUNNING) {
+			attackTimer.Reset();
+			attackTimer.Start();
+			
+			//TAIL
+			mario->tail;
+		}
+	}
+}
+
 void MarioStateRacoon::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
@@ -154,6 +171,10 @@ void MarioStateRacoon::Render()
 
 	else if (mario->isSliding && mario->GetVX() != 0) {
 		aniId = ID_ANI_RACOON_MARIO_BRACE_RIGHT;
+	}
+	else if (attackTimer.GetState() == TimerState::RUNNING) {
+		aniId = ID_ANI_RACOON_MARIO_ATTACK_FROM_RIGHT;
+		mario->SetTail();
 	}
 	else {
 
