@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseMarioState.h"
+#include "Timer.h"
 
 #define ID_ANI_RACOON_MARIO_IDLE_RIGHT 3400
 #define ID_ANI_RACOON_MARIO_IDLE_LEFT 3401
@@ -35,9 +36,12 @@ public:
     MarioStateRacoon(CMario* mario);
 
     virtual void JumpUpdate(DWORD dt);
-    //virtual void PowerMeterUpdate(DWORD dt);
+    virtual void PowerMeterUpdate(DWORD dt);
     //virtual void AttackUpdate(DWORD dt);
 
     virtual void Render();
+
+    Timer flyTimer{ true, 250L };
+    Timer pmeterTimer{ true, 4000L };
 };
 
