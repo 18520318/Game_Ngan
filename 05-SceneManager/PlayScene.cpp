@@ -15,6 +15,7 @@
 #include "PiranhaPlant.h"
 #include "PiranhaPipe.h"
 #include "Koopas.h"
+#include "GoldBrick.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -134,6 +135,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int type = (int)atof(tokens[3].c_str());
 		obj = new FirePiranhaPlant(x, y, type); 
 		break; 
+	}
+
+	case OBJECT_TYPE_GOLD_BRICK: {
+		int type = (int)atof(tokens[3].c_str());
+		obj = new GoldBrick (x, y, type);
+		break;
 	}
 	case OBJECT_TYPE_PIRANHA: { obj = new PiranhaPlant(x, y); break; }
 	case OBJECT_TYPE_BLOCK: {
