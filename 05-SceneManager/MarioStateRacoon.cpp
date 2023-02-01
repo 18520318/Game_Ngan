@@ -1,8 +1,24 @@
 #include "MarioStateRacoon.h"
 #include "Mario.h"
+#include "Tail.h"
 
 MarioStateRacoon::MarioStateRacoon(CMario* mario) : BaseMarioState(mario)
 {
+	this->tail = new CTail(mario);
+}
+
+MarioStateRacoon::~MarioStateRacoon()
+{
+	delete tail;
+}
+
+void MarioStateRacoon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	BaseMarioState::Update(dt, coObjects);
+
+	if (attackTimer.GetState() == TimerState::RUNNING) {
+		tail->Update(dt, coObjects);
+	}
 }
 
 void MarioStateRacoon::JumpUpdate(DWORD dt)
@@ -132,9 +148,6 @@ void MarioStateRacoon::AttackUpdate(DWORD dt)
 		if (attackTimer.GetState() != TimerState::RUNNING) {
 			attackTimer.Reset();
 			attackTimer.Start();
-			
-			//TAIL
-			mario->tail;
 		}
 	}
 }
@@ -175,6 +188,8 @@ void MarioStateRacoon::Render()
 	else if (attackTimer.GetState() == TimerState::RUNNING) {
 		aniId = ID_ANI_RACOON_MARIO_ATTACK_FROM_RIGHT;
 		mario->SetTail();
+
+		tail->Render();
 	}
 	else {
 
@@ -206,4 +221,5 @@ void MarioStateRacoon::Render()
 	if (mario->direct < 0) aniId += 1;
 
 	animations->Get(aniId)->Render(mario->GetX(), mario->GetY());
+
 }

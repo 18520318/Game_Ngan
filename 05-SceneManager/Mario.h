@@ -3,7 +3,6 @@
 
 #include "Animation.h"
 #include "Animations.h"
-#include "Tail.h"
 #include "Utils.h"
 
 #include "debug.h"
@@ -186,7 +185,7 @@ class CMario : public CGameObject
 
 public:
 	CGameObject* obj = NULL;
-	CTail* tail;
+//	CTail* tail;
 
 	boolean isShootingFire;
 	CMario(float x, float y);

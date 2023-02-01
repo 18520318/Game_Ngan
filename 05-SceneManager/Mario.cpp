@@ -36,7 +36,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	isShootingFire = false;
 	this->x = x;
 	this->y = y;
-	tail = new CTail(x, y);
+//	tail = new CTail(x, y);
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -77,10 +77,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CMario::SetTail()
 {
-	if (!tail) {
-		tail = new CTail(x, y);
-	}
-	if (nx > 0)
+	//if (!tail) {
+	//	tail = new CTail(this->GetX() - TAIL_BBOX_WIDTH, this->GetY());
+	//}
+	/*if (nx > 0)
 	{
 		tail->SetPosition(x - TAIL_BBOX_WIDTH / 2, y + POSITION_Y_OF_TAIL_MARIO / 2 - TAIL_BBOX_HEIGHT / 2);
 	}
@@ -88,7 +88,10 @@ void CMario::SetTail()
 		tail->SetPosition(x + MARIO_BIG_BBOX_WIDTH - TAIL_BBOX_WIDTH / 2, y + POSITION_Y_OF_TAIL_MARIO / 2 - TAIL_BBOX_HEIGHT / 2);
 	}
 	tail->SetWidth(TAIL_BBOX_WIDTH);
-	tail->SetHeight(TAIL_BBOX_HEIGHT);
+	tail->SetHeight(TAIL_BBOX_HEIGHT);*/
+
+	//tail->SetWidth(MARIO_BIG_BBOX_WIDTH + TAIL_BBOX_WIDTH * 2);
+	//tail->SetHeight(MARIO_BIG_BBOX_HEIGHT);
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -195,7 +198,7 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
 {
 	CQuestionBrick* questionBrick = dynamic_cast<CQuestionBrick*>(e->obj);
 	if (e->ny > 0 && !questionBrick->isEmpty) {
-		questionBrick->SetState(QUESTION_BRICK_STATE_UP);
+		questionBrick->Bounce();
 	}
 }
 
@@ -266,12 +269,8 @@ void CMario::Render()
 {
 	stateHandler->Render();
 
-	if (tail) {
-		tail->Render();
-	}
-
-	//
 	DebugOutTitle(L"Coins: %d", coin);
+	//RenderBoundingBox();
 }
 
 void CMario::SetState(int state)
