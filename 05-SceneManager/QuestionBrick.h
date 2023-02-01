@@ -28,6 +28,7 @@ class CQuestionBrick :
 public:
     BOOLEAN isEmpty = false;
     BOOLEAN isOpened = false;
+    BOOLEAN isBounced = false;
 
     virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
     virtual void Render();
@@ -39,6 +40,8 @@ public:
     virtual void OnNoCollision(DWORD dt);
 
     virtual void SetState(int state);
+    
+    void Bounce();
 
     virtual int IsBlocking(float nx, float ny, CGameObject* target) { return 1; };
 };

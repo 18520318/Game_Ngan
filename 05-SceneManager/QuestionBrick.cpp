@@ -99,3 +99,12 @@ void CQuestionBrick::SetState(int state)
 		break;
 	}
 }
+
+void CQuestionBrick::Bounce()
+{
+	if (this->isBounced) {
+		return;
+	}
+	this->isBounced = true;
+	this->SetState(QUESTION_BRICK_STATE_UP);
+}
