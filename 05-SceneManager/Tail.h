@@ -4,9 +4,13 @@
 #define TAIL_BBOX_WIDTH 11
 #define TAIL_BBOX_HEIGHT 6
 
+class CMario;
+
 class CTail :
     public CGameObject
 {
+private:
+	CMario* mario;
 public:
 	float width = 0.0f;
 	float height = 0.0f;
@@ -21,6 +25,6 @@ public:
 
 	void OnCollisionWithQuestionBrick(LPGAMEOBJECT& e);
 
-	CTail(float x, float y) {};
+	CTail(CMario* mario);
 };
 
