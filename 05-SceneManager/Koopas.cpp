@@ -4,6 +4,7 @@
 #include "Utils.h"
 #include "BGBlock.h"
 #include "QuestionBrick.h"
+#include "GoldBrick.h"
 
 Koopas::Koopas(float x, float y, int model) : CGameObject(x, y)
 {
@@ -310,6 +311,36 @@ void Koopas::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
 	if (e->nx != 0 && !questionBrick->isEmpty) {
 		if (state == KOOPAS_STATE_IS_KICKED) {
 			questionBrick->SetState(QUESTION_BRICK_STATE_UP);
+		}
+	}
+}
+
+void Koopas::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e)
+{
+	GoldBrick* goldbrick = dynamic_cast<GoldBrick*>(e->obj);
+
+	if (e->nx != 0 && goldbrick->objType == GOLD_BRICK_COIN) {
+		if (goldbrick->GetState() != GOLD_BRICK_STATE_TRANSFORM_COIN) {
+			if (state == KOOPAS_STATE_IS_KICKED) {
+				goldbrick->SetBreak(true);
+			}
+		}
+	}
+
+
+	if (objType == KOOPAS_RED) {
+		if (e->ny < 0) {
+			if (state == KOOPAS_STATE_WALKING && objType == KOOPAS_RED) {
+				if (x <= goldbrick->GetX() - ADJUST_X_TO_RED_CHANGE_DIRECTION)
+				{
+					vy = 0;
+					vx = KOOPAS_WALKING_SPEED;
+				}
+				else if (x >= goldbrick->GetX() + ADJUST_X_TO_RED_CHANGE_DIRECTION) {
+					vy = 0;
+					vx = -KOOPAS_WALKING_SPEED;
+				}
+			}
 		}
 	}
 }
