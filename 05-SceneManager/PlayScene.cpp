@@ -126,14 +126,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_GOOMBA: {
 		int type = (int)atof(tokens[3].c_str());
-		obj = new CGoomba(x, y, type);//CGoomba
+		obj = new CQuestionBrick(x, y, type);//CGoomba
 		break;
 	}
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_FIRE_PIRANHA: { 
 		int type = (int)atof(tokens[3].c_str());
-		obj = new FirePiranhaPlant(x, y, type); 
+		obj = new CQuestionBrick(x, y, type); //FirePiranhaPlant
 		break; 
 	}
 
@@ -355,8 +355,12 @@ void CPlayScene::SetCam(float cx, float cy)
 	if (cx >= mw - sw)//Right Edge
 		cx = (float)mw - (float)sw;
 
-	//cy -= sh /2 + MARIO_BIG_BBOX_HEIGHT;
-	cy = (float)mh - (float)sh;
+	if(isFlyCam){ 
+		cy -= sh / 2 + MARIO_BIG_BBOX_HEIGHT; 
+	}
+	else {
+		cy = (float)mh - (float)sh;
+	}
 	if (cy <= 0)//Left Edge
 		cy = 0;
 

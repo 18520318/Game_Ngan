@@ -52,6 +52,8 @@ public:
 	void SetPlayer(CMario* mario) { player = mario; }
 
 	vector<LPGAMEOBJECT> objects;
+
+	bool isFlyCam = false;
 };
 
 typedef CPlayScene* LPPLAYSCENE;

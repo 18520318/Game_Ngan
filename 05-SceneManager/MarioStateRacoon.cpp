@@ -1,6 +1,7 @@
 #include "MarioStateRacoon.h"
 #include "Mario.h"
 #include "Tail.h"
+#include "PlayScene.h"
 
 MarioStateRacoon::MarioStateRacoon(CMario* mario) : BaseMarioState(mario)
 {
@@ -32,8 +33,10 @@ void MarioStateRacoon::JumpUpdate(DWORD dt)
 	CGame* game = CGame::GetInstance();
 
 	flyTimer.Update(dt);
+	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
 
 	if (mario->isOnPlatform) {
+		playScene->isFlyCam = false;
 		mario->jumpState = MarioJumpState::Idle;
 
 		if (game->IsKeyPressed(DIK_S)) {
@@ -49,7 +52,8 @@ void MarioStateRacoon::JumpUpdate(DWORD dt)
 			mario->_jumpStartHeight = y;
 
 			//Change Camera state
-		}
+			playScene->isFlyCam = true;
+		};
 	}
 
 	float jumpHeight = MARIO_JUMP_HEIGHT;
@@ -123,6 +127,8 @@ void MarioStateRacoon::PowerMeterUpdate(DWORD dt)
 	if (pmeterTimer.GetState() != TimerState::RUNNING) {
 		if (pmeterTimer.GetState() == TimerState::TIMEOVER) {
 			mario->powerMeter = 0;
+			//mario->SetAY(0);
+			mario->SetVY(0);
 			pmeterTimer.Stop();
 		}
 
