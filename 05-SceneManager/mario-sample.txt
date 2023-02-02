@@ -25,3 +25,5 @@ height	240
 31	textures\enemies2.png
 32	textures\enemies3.png
 80	textures\Map\world1-1_bank.png
+100	textures\HUD.png
+101	textures\hud_source.png

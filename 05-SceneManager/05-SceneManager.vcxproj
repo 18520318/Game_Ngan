@@ -152,6 +152,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="FirePiranhaPlant.cpp" />
     <ClCompile Include="GoldBrick.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="MarioStateBig.cpp" />
     <ClCompile Include="MarioStateRacoon.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="FirePiranhaPlant.h" />
     <ClInclude Include="GoldBrick.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="MarioStateBig.h" />
     <ClInclude Include="MarioStateRacoon.h" />

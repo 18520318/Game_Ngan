@@ -17,6 +17,8 @@
 #include "Koopas.h"
 #include "GoldBrick.h"
 
+#include "HUD.h"
+
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
