@@ -25,6 +25,7 @@ public:
 	void GetSpriteTile();
 	void DrawMap();
 	void SetCamPos(float x, float y) { CamX = x; CamY = y; }
+	float GetCamY() { return CamY; }
 	int GetMapWidth();
 	int GetMapHeight();
 };

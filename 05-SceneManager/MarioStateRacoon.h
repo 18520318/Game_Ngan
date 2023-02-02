@@ -26,5 +26,7 @@ public:
     Timer flyTimer{ true, 250L };
     Timer pmeterTimer{ true, 4000L };
     Timer attackTimer{ true, 400L };
+
+    float MAX_FLY_HEIGHT = 315;
 };
 

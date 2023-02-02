@@ -35,8 +35,13 @@ void MarioStateRacoon::JumpUpdate(DWORD dt)
 	flyTimer.Update(dt);
 	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
 
+	DebugOut(L"Mario Position: %f\nCamera Position: %f\n\n", mario->GetY(), playScene->map->GetCamY());
+
 	if (mario->isOnPlatform) {
-		playScene->isFlyCam = false;
+		if (mario->GetY() >= MAX_FLY_HEIGHT) {
+			playScene->isFlyCam = false;
+		}
+		else playScene->isFlyCam = true;
 		mario->jumpState = MarioJumpState::Idle;
 
 		if (game->IsKeyPressed(DIK_S)) {
@@ -52,7 +57,8 @@ void MarioStateRacoon::JumpUpdate(DWORD dt)
 			mario->_jumpStartHeight = y;
 
 			//Change Camera state
-			playScene->isFlyCam = true;
+				playScene->isFlyCam = true;
+			//playScene->isFlyCam = true;
 		};
 	}
 
@@ -127,8 +133,6 @@ void MarioStateRacoon::PowerMeterUpdate(DWORD dt)
 	if (pmeterTimer.GetState() != TimerState::RUNNING) {
 		if (pmeterTimer.GetState() == TimerState::TIMEOVER) {
 			mario->powerMeter = 0;
-			//mario->SetAY(0);
-			mario->SetVY(0);
 			pmeterTimer.Stop();
 		}
 
@@ -169,10 +173,10 @@ void MarioStateRacoon::Render()
 		switch (mario->jumpState)
 		{
 			case MarioJumpState::Fly:
-				aniId = ID_ANI_RACOON_MARIO_FLYING_RIGHT;//ID_ANI_RACOON_MARIO_JUMP_RUN_RIGHT;
+				aniId = ID_ANI_RACOON_MARIO_FLYING_RIGHT;
 				break;
 			case MarioJumpState::Float:
-				aniId = ID_ANI_RACOON_MARIO_FLOATING_RIGHT;//ID_ANI_RACOON_MARIO_FLYING_RIGHT;
+				aniId = ID_ANI_RACOON_MARIO_FLOATING_RIGHT;
 				break;
 			case MarioJumpState::Fall:
 				aniId = ID_ANI_RACOON_MARIO_JUMP_WALK_RIGHT;
