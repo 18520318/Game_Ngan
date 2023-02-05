@@ -35,13 +35,12 @@ void MarioStateRacoon::JumpUpdate(DWORD dt)
 	flyTimer.Update(dt);
 	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
 
-	DebugOut(L"Mario Position: %f\nCamera Position: %f\n\n", mario->GetY(), playScene->map->GetCamY());
+	//DebugOut(L"Mario Position: %f\nCamera Position: %f\n\n", mario->GetY(), playScene->map->GetCamY());
 
 	if (mario->isOnPlatform) {
 		if (mario->GetY() >= MAX_FLY_HEIGHT) {
 			playScene->isFlyCam = false;
 		}
-		else playScene->isFlyCam = true;
 		mario->jumpState = MarioJumpState::Idle;
 
 		if (game->IsKeyPressed(DIK_S)) {
