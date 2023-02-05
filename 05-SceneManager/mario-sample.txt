@@ -27,3 +27,5 @@ height	240
 80	textures\Map\world1-1_bank.png
 100	textures\HUD.png
 101	textures\hud_source.png
+110	textures\letter.png
+50	textures\effect.png

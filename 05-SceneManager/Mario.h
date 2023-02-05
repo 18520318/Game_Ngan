@@ -168,7 +168,9 @@ class CMario : public CGameObject
 	int level; 
 	int untouchable; 
 	ULONGLONG untouchable_start;
+
 	int coin; 
+	int score;
 
 	BOOLEAN isGoThroughBlock = false;
 
@@ -257,4 +259,7 @@ public:
 
 	float GetAX() { return this->ax; }
 	float GetAY() { return this->ay; }
+
+	int GetScore() { return score; }
+	void SetScore(int sc) { score = sc; }
 };

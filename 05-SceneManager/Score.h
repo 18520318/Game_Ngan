@@ -1,0 +1,18 @@
+#pragma once
+#include "GameObject.h"
+
+#define ID_ANI_SCORE_EFFECT_100 910
+#define ID_ANI_SCORE_EFFECT_200 911
+#define ID_ANI_SCORE_EFFECT_400 912
+#define ID_ANI_SCORE_EFFECT_800 913
+#define ID_ANI_SCORE_EFFECT_1000 914
+#define ID_ANI_SCORE_EFFECT_2000 915
+#define ID_ANI_SCORE_EFFECT_4000 916
+#define ID_ANI_SCORE_EFFECT_8000 917
+#define ID_ANI_SCORE_EFFECT_1_UP 918
+
+class Score :
+    public CGameObject
+{
+};
+

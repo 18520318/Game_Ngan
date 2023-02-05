@@ -337,7 +337,10 @@ void CPlayScene::Render()
 	map->DrawMap();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+	CGame* game = CGame::GetInstance();
+	HUD* hud = new HUD(game->GetCamX() + HUD_WIDTH / 2, game->GetCamY() + game->GetScreenHeight() - HUD_HEIGHT / 2);
 
+	hud->Render(player,3000);
 }
 void CPlayScene::SetCam(float cx, float cy)
 {
