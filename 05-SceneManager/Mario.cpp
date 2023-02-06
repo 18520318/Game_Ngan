@@ -13,6 +13,7 @@
 #include "Leaf.h"
 #include "FirePiranhaPlant.h"
 #include "Koopas.h"
+#include "Score.h"
 
 #include "BaseMarioState.h"
 #include "MarioStateSmall.h"
@@ -36,6 +37,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	isShootingFire = false;
 	this->x = x;
 	this->y = y;
+	score = 0;
 //	tail = new CTail(x, y);
 }
 
@@ -70,6 +72,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (b - t != finalb - finalt) {
 		this->y += b - finalb;
+	}
+
+	for (size_t i = 0; i < ListEffect.size(); i++)
+	{
+		ListEffect[i]->Update(dt, coObjects);
+		if (ListEffect[i]->isDeleted) {
+			ListEffect.erase(ListEffect.begin() + i);
+		}
 	}
 
 	//isOnPlatform = true;
@@ -204,8 +214,16 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 {
-	DebugOut(L"-------------------------------------------------------");
+	/*DebugOut(L"-------------------------------------------------------");
 	level = MARIO_LEVEL_RACOON;
+	e->obj->Delete();*/
+
+	Score* _obj = new Score(GetX(), GetY(), SCORE_1000);
+	int sc = _obj->SetScoreMario();
+	SetScore(sc);
+	//DebugOut(L"Current score: %f", GetScore());
+	SetLevel(MARIO_LEVEL_RACOON);
+	ListEffect.push_back(_obj);
 	e->obj->Delete();
 }
 
@@ -269,7 +287,12 @@ void CMario::Render()
 {
 	stateHandler->Render();
 
-	DebugOutTitle(L"Coins: %d", coin);
+	for (int i = 0; i < ListEffect.size(); i++)
+	{
+		ListEffect[i]->Render();
+	}
+
+	DebugOutTitle(L"Coins: %f", GetScore());//coin
 	//RenderBoundingBox();
 }
 
@@ -401,9 +424,7 @@ void CMario::SetHurt()
 
 void CMario::ShootFire()
 {
-	FireBall* fireBall = new FireBall(x + ADJUST_MARIO_SHOOT_FIRE_X, y + ADJUST_MARIO_SHOOT_FIRE_Y);
-	fireBall->SetState(FIRE_FROM_MARIO);
-	FireList.push_back(fireBall);
+	
 }
 
 void CMario::SetLevel(int l)

@@ -1,6 +1,7 @@
 #include "Leaf.h"
 #include "Mario.h"
 #include "PlayScene.h"
+#include "Score.h"
 
 CLeaf::CLeaf(float x, float y)
 {
@@ -84,13 +85,15 @@ void CLeaf::OnNoCollision(DWORD dt)
 
 void CLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	if (e->obj == mario) {
-		//TODO: Score
-		mario->SetLevel(MARIO_LEVEL_RACOON);
-		isDeleted = true;
-		
-	}
+	//CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	//if (e->obj == mario) {
+	//	//TODO: Score
+	//	mario->obj = new Score(this->x, this->y, SCORE_1000);
+	//	mario->SetLevel(MARIO_LEVEL_RACOON);
+	//	mario->ListEffect.push_back(mario->obj);
+	//	isDeleted = true;
+	//	
+	//}
 }
 
 void CLeaf::SetState(int state)

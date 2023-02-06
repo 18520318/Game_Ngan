@@ -214,7 +214,7 @@ public:
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 
-	vector<LPGAMEOBJECT> FireList;
+	vector<LPGAMEOBJECT> ListEffect;
 	void ShootFire();
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }

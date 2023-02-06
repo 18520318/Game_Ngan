@@ -92,4 +92,6 @@ public:
 	void SetType(int type) { this->model = type; }
 
 	bool isDeleted;
+
+	virtual int SetScoreMario() { return 0; };
 };
