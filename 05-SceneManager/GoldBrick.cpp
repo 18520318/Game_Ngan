@@ -3,6 +3,7 @@
 #include "Mario.h"
 #include "PlayScene.h"
 #include "Mushroom.h"
+#include "BreakBrick.h"
 
 GoldBrick::GoldBrick(float x, float y, int model)
 {
@@ -37,7 +38,7 @@ void GoldBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		vy = GOLD_BRICK_SPEED_DOWN;
 		if (mario->GetLevel() != MARIO_LEVEL_SMALL) {
-			if (model == GOLD_BRICK_COIN) {
+			if (objType == GOLD_BRICK_COIN) {
 				isBreak = true;
 			}
 		}
@@ -55,7 +56,7 @@ void GoldBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 
 	if (isUnbox) {
-		if (model == GOLD_BRICK_MUSHROOM) {
+		if (objType == GOLD_BRICK_MUSHROOM) {
 			CMushroom* mushroom = new CMushroom(x, y);
 			mushroom->SetState(MUSHROOM_STATE_UP);
 			scene->objects.insert(scene->objects.begin() + 1, mushroom);
@@ -66,6 +67,22 @@ void GoldBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (isBreak) {
 		isDeleted = true;
 		isBreak = false;
+
+
+		BreakBrick* break1 = new BreakBrick(2048, 368);
+		break1->SetState(BREAK_STATE_TOP_RIGHT);
+		BreakBrick* break2 = new BreakBrick(2048, 368);
+		break2->SetState(BREAK_STATE_TOP_LEFT);
+		BreakBrick* break3 = new BreakBrick(2048, 368);
+		break3->SetState(BREAK_STATE_BOTTOM_RIGHT);
+		BreakBrick* break4 = new BreakBrick(2048, 368);
+		break4->SetState(BREAK_STATE_BOTTOM_LEFT);
+
+
+		scene->objects.push_back(break1);
+		scene->objects.push_back(break2);
+		scene->objects.push_back(break3);
+		scene->objects.push_back(break4);
 	}
 
 	if (isTransform && GetTickCount64() - transform_start > GOLD_BRICK_COIN_TIME_OUT) {
@@ -123,14 +140,14 @@ void GoldBrick::SetState(int state)
 		vy = -GOLD_BRICK_SPEED_UP;
 		break;
 	case GOLD_BRICK_STATE_TRANSFORM_COIN:
-		if (this->GetType() == GOLDBRICK) {
+		if (this->GetModel() == GOLDBRICK) {
 			SetType(EType::COIN);
 			transform_start = GetTickCount64();
 			isTransform = true;
 		}
 		break;
 	case GOLD_BRICK_STATE_NORMAL:
-		if (this->GetType() == COIN) {
+		if (this->GetModel() == COIN) {
 			//DebugOut(L"[INFO] Brick State\n");
 			SetType(EType::GOLDBRICK);
 			transform_start = -1;

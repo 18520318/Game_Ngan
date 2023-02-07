@@ -14,6 +14,7 @@
 #include "FirePiranhaPlant.h"
 #include "Koopas.h"
 #include "Score.h"
+#include "GoldBrick.h"
 
 #include "BaseMarioState.h"
 #include "MarioStateSmall.h"
@@ -38,6 +39,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	this->x = x;
 	this->y = y;
 	score = 0;
+	live = 0;
 //	tail = new CTail(x, y);
 }
 
@@ -146,6 +148,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFireball(e);
 	else if (dynamic_cast<Koopas*>(e->obj))
 		OnCollisionWithKoopas(e);
+	else if (dynamic_cast<GoldBrick*>(e->obj))
+		OnCollisionWithGoldBrick(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -279,6 +283,14 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	}
 	else if (e->ny > 0) {
 		SetHurt();
+	}
+}
+
+void CMario::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e)
+{
+	GoldBrick* goldBrick = dynamic_cast<GoldBrick*>(e->obj);
+	if (e->ny > 0 && !goldBrick->isEmpty) {
+		goldBrick->SetState(GOLD_BRICK_STATE_UP);
 	}
 }
 

@@ -171,6 +171,7 @@ class CMario : public CGameObject
 
 	int coin; 
 	int score;
+	int live;
 
 	BOOLEAN isGoThroughBlock = false;
 
@@ -183,6 +184,7 @@ class CMario : public CGameObject
 	void OnCollisionWithPiranha(LPCOLLISIONEVENT e);
 	void OnCollisionWithFireball(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopas(LPCOLLISIONEVENT e);
+	void OnCollisionWithGoldBrick(LPCOLLISIONEVENT e);
 
 
 public:
@@ -261,5 +263,8 @@ public:
 	float GetAY() { return this->ay; }
 
 	int GetScore() { return score; }
-	void SetScore(int sc) { score = sc; }
+	void SetScore(int sc) { score += sc; }
+
+	void SetLive(int l) { live += l; }
+	int GetLive() { return live; }
 };

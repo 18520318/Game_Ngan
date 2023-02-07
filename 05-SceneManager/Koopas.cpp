@@ -266,7 +266,7 @@ void Koopas::OnCollisionWith(LPCOLLISIONEVENT e)
 			isTailAttacked = false;
 		}
 		else {
-			if (model == KOOPAS_GREEN_WING && state == KOOPAS_STATE_JUMP) {
+			if (objType == KOOPAS_GREEN_WING && state == KOOPAS_STATE_JUMP) {
 				vy = -KOOPAS_WING_JUMP_SPEED;
 				ay = KOOPAS_WING_GRAVITY;
 			}
@@ -274,7 +274,7 @@ void Koopas::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	else if (e->nx != 0)
 	{
-		if (e->obj->GetType() == OBJECT || e->obj->GetType() == GOLDBRICK) {
+		if (e->obj->GetModel() == OBJECT || e->obj->GetModel() == GOLDBRICK) {
 			vx = -vx;
 		}
 	}
@@ -283,6 +283,8 @@ void Koopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithBackGroundBlock(e);
 	else if (dynamic_cast<CQuestionBrick*>(e->obj))
 		OnCollisionWithQuestionBrick(e);
+	else if (dynamic_cast<GoldBrick*>(e->obj))
+		OnCollisionWithGoldBrick(e);
 }
 
 void Koopas::OnCollisionWithBackGroundBlock(LPCOLLISIONEVENT e)
@@ -326,7 +328,7 @@ void Koopas::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e)
 			}
 		}
 	}
-
+	//DebugOut(L"ObjType: %s", objType);
 
 	if (objType == KOOPAS_RED) {
 		if (e->ny < 0) {

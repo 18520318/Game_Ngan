@@ -90,6 +90,7 @@ public:
 	void SetDirectionY(int ny) { this->ny = ny; }
 
 	void SetType(int type) { this->model = type; }
+	int GetModel() { return model; }
 
 	bool isDeleted;
 

@@ -90,6 +90,9 @@ void CMushroom::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (e->obj == mario) {
 		//TODO: Score
 		isDeleted = true;
-		mario->SetLevel(MARIO_LEVEL_BIG);
+		if (mario->GetLevel() == MARIO_LEVEL_RACOON) {
+			mario->SetLive(1);
+		}
+		else mario->SetLevel(MARIO_LEVEL_BIG);
 	}
 }
