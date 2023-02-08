@@ -175,5 +175,8 @@ MODEL = 1 BIG FIREPIRANHA PLANT
 10	2096	352	3
 10	2096	368	3
 10	2112	368	3
+
+############ PORTAL IN ######
+51	90	350	5	16	-1	100	350
 [TILEMAP]
 Resources\Tilemap\world1-1.txt

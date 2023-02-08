@@ -23,6 +23,8 @@
 #define OBJECT_TYPE_GOLD_BRICK 10
 
 #define OBJECT_TYPE_PORTAL	50
+#define OBJECT_TYPE_PORTAL_IN 51
+#define OBJECT_TYPE_PORTAL_OUT 52
 
 
 #pragma region MARIO 

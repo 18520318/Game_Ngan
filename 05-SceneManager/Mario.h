@@ -212,6 +212,7 @@ public:
 	boolean isRunningMax = false;
 	boolean canFallSlow = false;
 	BOOLEAN isSitting;
+	boolean isDisable = true;
 
 	void SetTail();
 
