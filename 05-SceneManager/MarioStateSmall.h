@@ -22,6 +22,8 @@ class CMario;
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT 1600
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT 1601
 
+#define ID_ANI_MARIO_SMALL_WARP 1671
+
 
 class MarioStateSmall :
     public BaseMarioState

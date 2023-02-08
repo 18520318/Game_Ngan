@@ -22,6 +22,8 @@
 #define ID_ANI_MARIO_BRACE_RIGHT 1000
 #define ID_ANI_MARIO_BRACE_LEFT 1001
 
+#define ID_ANI_MARIO_WARP 622
+
 class CMario;
 
 class MarioStateBig :

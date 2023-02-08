@@ -89,21 +89,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CMario::SetTail()
 {
-	//if (!tail) {
-	//	tail = new CTail(this->GetX() - TAIL_BBOX_WIDTH, this->GetY());
-	//}
-	/*if (nx > 0)
-	{
-		tail->SetPosition(x - TAIL_BBOX_WIDTH / 2, y + POSITION_Y_OF_TAIL_MARIO / 2 - TAIL_BBOX_HEIGHT / 2);
-	}
-	else {
-		tail->SetPosition(x + MARIO_BIG_BBOX_WIDTH - TAIL_BBOX_WIDTH / 2, y + POSITION_Y_OF_TAIL_MARIO / 2 - TAIL_BBOX_HEIGHT / 2);
-	}
-	tail->SetWidth(TAIL_BBOX_WIDTH);
-	tail->SetHeight(TAIL_BBOX_HEIGHT);*/
-
-	//tail->SetWidth(MARIO_BIG_BBOX_WIDTH + TAIL_BBOX_WIDTH * 2);
-	//tail->SetHeight(MARIO_BIG_BBOX_HEIGHT);
 }
 
 void CMario::OnNoCollision(DWORD dt)
