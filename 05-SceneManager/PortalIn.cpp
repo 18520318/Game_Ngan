@@ -2,7 +2,7 @@
 #include "Mario.h"
 #include "PlayScene.h"
 
-PortalIn::PortalIn(float x, float y, float w, float h, int direction, float cx, float cy)
+PortalIn::PortalIn(float x, float y, float w, float h, int direction, float cx, float cy, int scene)
 {
 	this->x = x;
 	this->y = y;
@@ -16,6 +16,7 @@ PortalIn::PortalIn(float x, float y, float w, float h, int direction, float cx, 
 	this->portal_dir = direction;
 
 	isActive = false;
+	this->sceneNo = scene;
 }
 
 void PortalIn::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -59,6 +60,8 @@ void PortalIn::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		if (end) {
 			isActive = false;
+			game->InitiateSwitchScene(sceneNo);
+			game->SwitchScene();
 			mario->isDisable = false;
 			mario->SetPosition(cx, cy);
 			mario->walkState = MarioWalkState::Idle;

@@ -147,6 +147,9 @@
     <ClCompile Include="PortalIn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PortalOut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -285,6 +288,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PortalIn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PortalOut.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

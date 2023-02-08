@@ -16,7 +16,9 @@ public:
 	float width;
 	float height;
 
-	PortalIn(float x, float y, float w, float h, int direction, float cx, float cy);
+	int sceneNo;
+
+	PortalIn(float x, float y, float w, float h, int direction, float cx, float cy, int scene);
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
@@ -24,5 +26,7 @@ public:
 	virtual int IsBlocking(LPCOLLISIONEVENT e) { return 0; }
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+
+	int GetScene() { return sceneNo; }
 };
 
