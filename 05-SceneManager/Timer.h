@@ -38,5 +38,7 @@ public:
 
 	void Update(unsigned long dt);
 
+	int GetTime() { return timeleft; }
+
 };
 

@@ -335,12 +335,17 @@ void CPlayScene::Load()
 	f.close();
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
+
+	gameTime->Start();
 }
 
 void CPlayScene::Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
+
+	gameTime->Update(dt);
+	remainingTime = gameTime->GetTime();
 
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 1; i < objects.size(); i++)
@@ -373,7 +378,7 @@ void CPlayScene::Render()
 	CGame* game = CGame::GetInstance();
 	HUD* hud = new HUD(game->GetCamX() + HUD_WIDTH / 2, game->GetCamY() + game->GetScreenHeight() - HUD_HEIGHT / 2);
 
-	hud->Render(player,3000);
+	hud->Render(player,remainingTime / 1000);
 }
 void CPlayScene::SetCam(float cx, float cy)
 {

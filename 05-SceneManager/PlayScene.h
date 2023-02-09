@@ -8,6 +8,7 @@
 #include "Goomba.h"
 #include "Map.h"
 #include "QBCoin.h"
+#include "Timer.h"
 //#include "Koopas.h"
 
 
@@ -25,6 +26,8 @@ protected:
 	void _ParseSection_TILEMAP(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
+
+	Timer* gameTime = new Timer(true, GAME_TIME_LIMIT);
 	
 public: 
 	CPlayScene(int id, LPCWSTR filePath);
@@ -54,6 +57,7 @@ public:
 	vector<LPGAMEOBJECT> objects;
 
 	bool isFlyCam = false;
+	int remainingTime;
 };
 
 typedef CPlayScene* LPPLAYSCENE;

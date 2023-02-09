@@ -58,3 +58,5 @@ enum EType {
 #define ENEMY_STATE_IS_KOOPAS_ATTACKED 900 // koopas is kicked attack or tail attack
 #define ENEMY_STATE_IS_FIRE_ATTACKED 901
 #define ENEMY_STATE_IS_TAIL_ATTACKED 902
+
+#define GAME_TIME_LIMIT 300000
