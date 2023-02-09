@@ -40,6 +40,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	this->y = y;
 	score = 0;
 	live = 0;
+	hand = NULL;
 //	tail = new CTail(x, y);
 }
 
@@ -233,6 +234,7 @@ void CMario::OnCollisionWithFireball(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
 	Koopas* koopas = dynamic_cast<Koopas*>(e->obj);
+	CGame* game = CGame::GetInstance();
 
 	if (e->ny < 0)
 	{
@@ -259,11 +261,21 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 		}
 		else if (koopas->GetState() == KOOPAS_STATE_DEFEND || koopas->GetState() == KOOPAS_STATE_UPSIDE)
 		{
+			if (game->IsKeyDown(DIK_A)) {
+				koopas->isHeld = true;
+				hand = koopas;
+				return;
+			}
 			koopas->SetState(KOOPAS_STATE_IS_KICKED);
 			//SCORE
 		}
 	}
 	else if (e->nx != 0) {
+		if ((koopas->GetState() == KOOPAS_STATE_DEFEND || koopas->GetState() == KOOPAS_STATE_UPSIDE) && game->IsKeyDown(DIK_A)) {
+			koopas->isHeld = true;
+			hand = koopas;
+			return;
+		}else
 		SetHurt();
 	}
 	else if (e->ny > 0) {

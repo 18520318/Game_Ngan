@@ -1,6 +1,7 @@
 #include "BaseMarioState.h"
 #include "GameObject.h"
 #include "Mario.h"
+#include "Koopas.h"
 
 BaseMarioState::BaseMarioState(CMario* mario)
 {
@@ -170,6 +171,18 @@ void BaseMarioState::JumpUpdate(DWORD dt)
 
 void BaseMarioState::holdingShellUpdate(DWORD dt)
 {
+	CGame* game = CGame::GetInstance();
+	if (mario->hand != NULL) {
+		if (mario->direct > 0) {
+			mario->hand->SetPosition(mario->GetX() + 10, mario->GetY());
+		}
+		else mario->hand->SetPosition(mario->GetX() - 10, mario->GetY());
+		if (game->IsKeyReleased(DIK_A)) {
+			dynamic_cast<Koopas*>(mario->hand)->isHeld = false;
+			mario->hand = NULL;
+		}
+	}
+
 }
 
 void BaseMarioState::warpUpdate(DWORD dt)

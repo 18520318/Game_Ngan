@@ -16,6 +16,9 @@
     <Filter Include="Mario">
       <UniqueIdentifier>{f1267074-9f9d-4cc0-92a2-2a18cc51ad50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="World Map">
+      <UniqueIdentifier>{c607976d-df83-4d09-ae0d-6c3760bf1efd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

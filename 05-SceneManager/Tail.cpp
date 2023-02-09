@@ -30,7 +30,7 @@ void CTail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<CQuestionBrick*>(coObjects->at(i)))
 				OnCollisionWithQuestionBrick(coObjects->at(i));
-			else if (dynamic_cast<GoldBrick*>(coObjects->at(i)))
+			else if (coObjects->at(i)->GetModel() == GOLDBRICK)//dynamic_cast<GoldBrick*>(coObjects->at(i)))
 				OnCollisionWithGoldBrick(coObjects->at(i));
 		}
 		

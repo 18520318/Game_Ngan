@@ -116,15 +116,6 @@ void GoldBrick::Render()
 	//RenderBoundingBox();
 }
 
-int GoldBrick::IsBlocking()
-{
-	if (state == GOLD_BRICK_STATE_TRANSFORM_COIN) {
-		return 0;
-	}
-	else
-		return 1;
-}
-
 void GoldBrick::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;

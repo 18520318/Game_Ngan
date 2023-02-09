@@ -44,7 +44,8 @@ void Koopas::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (!checkObjectInCamera(this)) return;
+	if (!checkObjectInCamera(this) || isHeld) return;
+
 	vy += ay * dt;
 	vx += ax * dt;
 

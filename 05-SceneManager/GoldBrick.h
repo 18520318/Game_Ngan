@@ -47,7 +47,9 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 
-	virtual int IsBlocking();
+	virtual int IsBlocking(float nx, float ny, CGameObject* target) {
+		return 1;
+	};
 	virtual int IsCollidable() { return 0; };
 	virtual void OnNoCollision(DWORD dt);
 

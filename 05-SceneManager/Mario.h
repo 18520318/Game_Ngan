@@ -270,4 +270,6 @@ public:
 
 	void SetLive(int l) { live += l; }
 	int GetLive() { return live; }
+
+	LPGAMEOBJECT hand;
 };
