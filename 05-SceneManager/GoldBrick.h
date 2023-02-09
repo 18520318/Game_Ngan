@@ -48,6 +48,7 @@ public:
 	virtual void Render();
 
 	virtual int IsBlocking();
+	virtual int IsCollidable() { return 0; };
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void SetState(int state);

@@ -69,13 +69,13 @@ void GoldBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isBreak = false;
 
 
-		BreakBrick* break1 = new BreakBrick(2048, 368);
+		BreakBrick* break1 = new BreakBrick(x, y);
 		break1->SetState(BREAK_STATE_TOP_RIGHT);
-		BreakBrick* break2 = new BreakBrick(2048, 368);
+		BreakBrick* break2 = new BreakBrick(x, y);
 		break2->SetState(BREAK_STATE_TOP_LEFT);
-		BreakBrick* break3 = new BreakBrick(2048, 368);
+		BreakBrick* break3 = new BreakBrick(x, y);
 		break3->SetState(BREAK_STATE_BOTTOM_RIGHT);
-		BreakBrick* break4 = new BreakBrick(2048, 368);
+		BreakBrick* break4 = new BreakBrick(x, y);
 		break4->SetState(BREAK_STATE_BOTTOM_LEFT);
 
 

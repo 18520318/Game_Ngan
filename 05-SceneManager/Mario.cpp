@@ -275,6 +275,7 @@ void CMario::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e)
 {
 	GoldBrick* goldBrick = dynamic_cast<GoldBrick*>(e->obj);
 	if (e->ny > 0 && !goldBrick->isEmpty) {
+		//isGoThroughBlock = false;
 		goldBrick->SetState(GOLD_BRICK_STATE_UP);
 	}
 }
