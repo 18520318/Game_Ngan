@@ -129,6 +129,10 @@ void CGoomba::Render()
 	int aniId = -1;
 	if (objType == NORMAL_GOOMBA) {
 		aniId = ID_ANI_GOOMBA_WALKING;
+		if (state == ENEMY_STATE_IS_KOOPAS_ATTACKED || state == ENEMY_STATE_IS_TAIL_ATTACKED)
+		{
+			aniId = ID_ANI_GOOMBA_IS_ATTACKED;
+		}
 		if (state == GOOMBA_STATE_DIE)
 		{
 			aniId = ID_ANI_GOOMBA_DIE;
@@ -153,6 +157,9 @@ void CGoomba::Render()
 		}
 		else if (state == GOOMBA_RED_WING_STATE_JUMP_HIGH || state == GOOMBA_RED_WING_STATE_JUMP_LOW) {
 			aniId = ID_RED_GOOMBA_WING_JUMP;
+		}
+		else if (state == ENEMY_STATE_IS_KOOPAS_ATTACKED || state == ENEMY_STATE_IS_TAIL_ATTACKED) {
+			aniId = ID_ANI_GOOMBA_IS_ATTACKED;
 		}
 	}
 	
@@ -192,9 +199,19 @@ void CGoomba::SetState(int state)
 			isOnPlatform = false;
 			isOnAir = true;
 			break;
+		case ENEMY_STATE_IS_TAIL_ATTACKED:
 		case IS_ATTACKED:
 			vy = -GOOMBA_IS_ATTACK_SPEED_Y;
 			vx = mario->GetDirection() * GOOMBA_IS_ATTACK_SPEED_X;
 			break;
+	}
+}
+
+int CGoomba::IsCollidable() {
+	if (state == ENEMY_STATE_IS_KOOPAS_ATTACKED || state == ENEMY_STATE_IS_TAIL_ATTACKED) {
+		return 0;
+	}
+	else {
+		return 1;
 	}
 }

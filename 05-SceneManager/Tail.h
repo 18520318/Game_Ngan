@@ -24,6 +24,8 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
 	void OnCollisionWithQuestionBrick(LPGAMEOBJECT& e);
+	void OnCollisionWithGoldBrick(LPGAMEOBJECT& e);
+	void OnCollisionWithEnemy(LPGAMEOBJECT& e);
 
 	CTail(CMario* mario);
 };

@@ -2,6 +2,7 @@
 #include "QuestionBrick.h"
 #include "Mario.h"
 #include "PlayScene.h"
+#include "GoldBrick.h"
 
 void CTail::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -13,19 +14,24 @@ void CTail::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void CTail::Render()
 {
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CTail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->x = this->mario->GetX();
-	this->y = this->mario->GetY() + 6;
+	this->y = this->mario->GetY();// +6;
 
 	for (int i = 0; i < coObjects->size(); i++)
 	{
 		if (CCollision::GetInstance()->CheckAABB(this, coObjects->at(i))) {
-			if (dynamic_cast<CQuestionBrick*>(coObjects->at(i)))
+			if (coObjects->at(i)->GetModel() == ENEMY) {
+				OnCollisionWithEnemy(coObjects->at(i));
+			}
+			else if (dynamic_cast<CQuestionBrick*>(coObjects->at(i)))
 				OnCollisionWithQuestionBrick(coObjects->at(i));
+			else if (dynamic_cast<GoldBrick*>(coObjects->at(i)))
+				OnCollisionWithGoldBrick(coObjects->at(i));
 		}
 		
 	}
@@ -37,6 +43,19 @@ void CTail::OnCollisionWithQuestionBrick(LPGAMEOBJECT& e)
 	if (!questionBrick->isEmpty) {
 		questionBrick->Bounce();
 	}
+}
+
+void CTail::OnCollisionWithGoldBrick(LPGAMEOBJECT& e)
+{
+	GoldBrick* goldbrick = dynamic_cast<GoldBrick*>(e);
+	if (!goldbrick->isEmpty) {
+		goldbrick->SetBreak(true);
+	}
+}
+
+void CTail::OnCollisionWithEnemy(LPGAMEOBJECT& e)
+{
+	e->SetState(ENEMY_STATE_IS_TAIL_ATTACKED);
 }
 
 CTail::CTail(CMario* mario)
