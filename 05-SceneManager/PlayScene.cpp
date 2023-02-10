@@ -21,6 +21,8 @@
 
 #include "HUD.h"
 
+#include "Backup.h"
+
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
@@ -399,11 +401,15 @@ void CPlayScene::SetCam(float cx, float cy)
 		cx = (float)mw - (float)sw;
 
 	if(isFlyCam){ 
-		cy -= sh / 2 + MARIO_BIG_BBOX_HEIGHT; 
+		cy -= (float)sh / 2 + MARIO_BIG_BBOX_HEIGHT;
 	}
-	else {
+	/*else {
 		cy = (float)mh - (float)sh;
-	}
+	}*/
+	if (cy <= -HUD_HEIGHT)//Top Edge
+		cy = -HUD_HEIGHT;
+	if (cy + sh >= mh)//Bottom Edge
+		cy = (float)mh - (float)sh;
 	if (cy <= 0)//Left Edge
 		cy = 0;
 
@@ -443,6 +449,20 @@ void CPlayScene::Unload()
 }
 
 bool CPlayScene::IsGameObjectDeleted(const LPGAMEOBJECT& o) { return o == NULL; }
+
+void CPlayScene::BackupPlayerInfo()
+{
+	if (player) {
+		CBackUp* backup = CBackUp::GetInstance();
+		backup->BackUpMario(player);
+	}
+}
+
+void CPlayScene::LoadBackupPlayerInfo()
+{
+	CBackUp* backup = CBackUp::GetInstance();
+	backup->LoadBackUp(player);
+}
 
 void CPlayScene::PurgeDeletedObjects()
 {

@@ -153,6 +153,9 @@
     <ClCompile Include="PortalOut.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Backup.cpp">
+      <Filter>Mario</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="PortalOut.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Backup.h">
+      <Filter>Mario</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

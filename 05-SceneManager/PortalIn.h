@@ -28,5 +28,8 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 	int GetScene() { return sceneNo; }
+
+	float GetCX() { return cx; }
+	float GetCY() { return cy; }
 };
 

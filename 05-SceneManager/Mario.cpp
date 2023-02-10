@@ -15,6 +15,7 @@
 #include "Koopas.h"
 #include "Score.h"
 #include "GoldBrick.h"
+#include "PortalIn.h"
 
 #include "BaseMarioState.h"
 #include "MarioStateSmall.h"
@@ -41,6 +42,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	score = 0;
 	live = 0;
 	hand = NULL;
+	isDisable = false;
 //	tail = new CTail(x, y);
 }
 
@@ -60,8 +62,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		SetLevel(MARIO_LEVEL_RACOON);
 	}
 
-	if (this->x < 0) {
-		this->x = 0;
+	if (!isDisable) {
+		if (this->x < 0) {
+			this->x = 0;
+		}
 	}
 
 	this->vy += ay * dt;
@@ -136,6 +140,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithKoopas(e);
 	else if (dynamic_cast<GoldBrick*>(e->obj))
 		OnCollisionWithGoldBrick(e);
+	else if (dynamic_cast<PortalIn*>(e->obj))
+		OnCollisionWithPortalIn(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -289,6 +295,17 @@ void CMario::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e)
 	if (e->ny > 0 && !goldBrick->isEmpty) {
 		//isGoThroughBlock = false;
 		goldBrick->SetState(GOLD_BRICK_STATE_UP);
+	}
+}
+
+void CMario::OnCollisionWithPortalIn(LPCOLLISIONEVENT e)
+{
+	PortalIn* p = (PortalIn*)e->obj;//dynamic_cast<PortalIn*>(e->obj);//(PortalIn*)e->obj;
+	if (e->ny != 0) {
+		if (p->sceneNo == HIDDEN_SCENE_ID) {
+			DebugOut(L"New map position: x: %f %f\n", p->GetCX(), p->GetCY());
+			CGame::GetInstance()->SwitchToHiddenMap(p->sceneNo, p->GetCX(), p->GetCY());
+		}
 	}
 }
 

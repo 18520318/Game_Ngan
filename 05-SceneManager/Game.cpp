@@ -539,6 +539,14 @@ void CGame::SwitchScene()
 
 	scenes[current_scene]->Unload();
 
+	//reset prev scene
+	if (prev_scene != -1)
+	{
+		((CPlayScene*)scenes[prev_scene])->SetPlayer(nullptr);
+		scenes[prev_scene]->Unload();
+		prev_scene = -1;
+	}
+
 	CSprites::GetInstance()->Clear();
 	CAnimations::GetInstance()->Clear();
 
@@ -566,6 +574,35 @@ void CGame::_ParseSection_TEXTURES(string line)
 	CTextures::GetInstance()->Add(texID, path.c_str());
 }
 
+
+void CGame::SwitchToHiddenMap(int scene_id, int cx, int cy)
+{
+	BOOLEAN isLoad = true;
+	if (dynamic_cast<CPlayScene*>(scenes[current_scene])) {
+		((CPlayScene*)scenes[current_scene])->BackupPlayerInfo();
+	}
+	if (current_scene == scene_id) {
+		isLoad = false;
+	}
+
+	prev_scene = current_scene;
+	next_scene = scene_id;
+	current_scene = next_scene;
+
+	LPSCENE s = scenes[next_scene];
+	this->SetKeyHandler(s->GetKeyEventHandler());
+
+	if (isLoad) {
+
+		s->Load();
+	}
+
+	CMario* mario = ((CPlayScene*)scenes[current_scene])->GetPlayer();
+	mario->SetPosition(cx, cy);
+
+	if (dynamic_cast<CPlayScene*>(scenes[current_scene]))
+		((CPlayScene*)scenes[current_scene])->LoadBackupPlayerInfo();
+}
 
 CGame::~CGame()
 {

@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="Backup.cpp" />
     <ClCompile Include="BaseMarioState.cpp" />
     <ClCompile Include="BGBlock.cpp" />
     <ClCompile Include="BreakBrick.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="Animations.h" />
     <ClInclude Include="AssetIDs.h" />
+    <ClInclude Include="Backup.h" />
     <ClInclude Include="BaseMarioState.h" />
     <ClInclude Include="BGBlock.h" />
     <ClInclude Include="BreakBrick.h" />

@@ -55,6 +55,7 @@ class CGame
 	unordered_map<int, LPSCENE> scenes;
 	int current_scene;
 	int next_scene = -1;
+	int prev_scene = -1;
 
 	int screen_width;
 	int screen_height;
@@ -130,6 +131,8 @@ public:
 	BYTE keyStates[256] = { ' ' };
 	BYTE keyPressed[256] = { 0 };
 	BYTE keyRelease[256] = { 0 };
+
+	void SwitchToHiddenMap(int scene_id, int cx, int cy);
 
 	~CGame();
 };

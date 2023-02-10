@@ -187,6 +187,7 @@ class CMario : public CGameObject
 	void OnCollisionWithFireball(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopas(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoldBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithPortalIn(LPCOLLISIONEVENT e);
 
 
 public:
@@ -268,7 +269,7 @@ public:
 	int GetScore() { return score; }
 	void SetScore(int sc) { score += sc; }
 
-	void SetLive(int l) { live += l; }
+	void SetLive(int l) { live = l; }
 	int GetLive() { return live; }
 
 	LPGAMEOBJECT hand;

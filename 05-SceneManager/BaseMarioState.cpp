@@ -23,6 +23,8 @@ void BaseMarioState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void BaseMarioState::WalkUpdate(DWORD dt)
 {
+	if (mario->isDisable) return; 
+
 	CGame* game = CGame::GetInstance();
 	float vx_check = mario->GetVX();
 	if (game->IsKeyDown(DIK_DOWN)) {
@@ -105,6 +107,7 @@ void BaseMarioState::WalkUpdate(DWORD dt)
 
 void BaseMarioState::JumpUpdate(DWORD dt)
 {
+	if (mario->isDisable) return;
 	float vy_temp = mario->GetVY();
 	
 	CGame* game = CGame::GetInstance();
@@ -171,6 +174,8 @@ void BaseMarioState::JumpUpdate(DWORD dt)
 
 void BaseMarioState::holdingShellUpdate(DWORD dt)
 {
+	if (mario->isDisable) return;
+
 	CGame* game = CGame::GetInstance();
 	if (mario->hand != NULL) {
 		if (mario->direct > 0) {
@@ -179,6 +184,7 @@ void BaseMarioState::holdingShellUpdate(DWORD dt)
 		else mario->hand->SetPosition(mario->GetX() - 10, mario->GetY());
 		if (game->IsKeyReleased(DIK_A)) {
 			dynamic_cast<Koopas*>(mario->hand)->isHeld = false;
+			mario->hand->SetPosition(mario->hand->GetX() + 5 * mario->direct, mario->hand->GetY() - 5);
 			mario->hand = NULL;
 		}
 	}
@@ -191,6 +197,7 @@ void BaseMarioState::warpUpdate(DWORD dt)
 
 void BaseMarioState::PowerMeterUpdate(DWORD dt)
 {
+	if (mario->isDisable) return;
 	float vx = mario->GetVX();
 
 	float maxRun = abs(vx) > MARIO_RUNNING_SPEED * 0.85f;

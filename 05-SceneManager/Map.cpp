@@ -9,6 +9,8 @@ Map::Map(int TexID, int NumofRowMap, int NumofColMap, int NumofRowTileSet, int N
 	this->NumofRowTileSet = NumofRowTileSet;
 	this->NumofColTileSet = NumofColTileSet;
 	this->TotalTile = TotalTile;
+
+	CamX = CamY = 0;
 }
 
 Map::~Map()

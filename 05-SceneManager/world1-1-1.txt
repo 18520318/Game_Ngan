@@ -1,16 +1,5 @@
 # list of object assets to load in this scene
 [ASSETS]
-mario.txt
-coin.txt
-cloud.txt
-brick.txt
-koopas.txt
-items.txt
-goomba.txt
-pipe.txt
-piranhaPlant.txt
-hud.txt
-effect.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -41,7 +30,7 @@ effect.txt
 #Platform
 5	129	129	16	16	1	22110	22110	22110
 5	145	129	16	16	1	22110	22110	22110
-5	113	1	16	16	1	22110	22110	22110
+5	113	17	16	16	1	22110	22110	22110
 5	113	17	16	16	1	22110	22110	22110
 5	113	33	16	16	1	22110	22110	22110
 5	113	49	16	16	1	22110	22110	22110

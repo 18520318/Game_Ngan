@@ -58,6 +58,10 @@ public:
 
 	bool isFlyCam = false;
 	int remainingTime;
+
+	void SetStartTime(int time) { gameTime->SetTimeOut(time); }
+	void BackupPlayerInfo();
+	void LoadBackupPlayerInfo();
 };
 
 typedef CPlayScene* LPPLAYSCENE;

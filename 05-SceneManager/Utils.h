@@ -60,3 +60,6 @@ enum EType {
 #define ENEMY_STATE_IS_TAIL_ATTACKED 902
 
 #define GAME_TIME_LIMIT 300000
+
+#define MAIN_SCENE_ID 6
+#define HIDDEN_SCENE_ID 7
