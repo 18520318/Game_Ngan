@@ -20,7 +20,7 @@ effect.txt
 #
 # MARIO
 #0	1424	10
-0	2176	250
+0	76	250
 #0	120	10
 #COIN
 4	1073	320
@@ -177,9 +177,9 @@ MODEL = 1 BIG FIREPIRANHA PLANT
 10	2112	368	3
 
 ############ PORTAL IN ######
-51	2164	320	5	16	-1	130	20	7
+51	2264	80	5	16	-1	130	20	7
 
 ############ PORTAL IN ######
-52	100	350	5	10	1
+#52	100	350	5	10	1
 [TILEMAP]
 Resources\Tilemap\world1-1.txt

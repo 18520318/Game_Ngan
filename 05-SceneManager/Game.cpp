@@ -481,7 +481,7 @@ void CGame::_ParseSection_SCENES(string line)
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
 
-	if (id == MAIN_SCENE_ID) {
+	if (id == MAIN_SCENE_ID || id == HIDDEN_SCENE_ID) {
 		LPSCENE scene = new CPlayScene(id, path);
 		scenes[id] = scene;
 	}
@@ -597,7 +597,7 @@ void CGame::SwitchToHiddenMap(int scene_id, int cx, int cy)
 	current_scene = next_scene;
 
 	LPSCENE s = scenes[next_scene];
-	this->SetKeyHandler(s->GetKeyEventHandler());
+	//this->SetKeyHandler(s->GetKeyEventHandler());
 
 	if (isLoad) {
 
