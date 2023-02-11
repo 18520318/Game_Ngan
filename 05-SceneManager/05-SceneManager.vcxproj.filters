@@ -19,6 +19,9 @@
     <Filter Include="World Map">
       <UniqueIdentifier>{c607976d-df83-4d09-ae0d-6c3760bf1efd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IntroScene">
+      <UniqueIdentifier>{e872c718-a259-44b6-95f7-44ce79524916}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -155,6 +158,9 @@
     </ClCompile>
     <ClCompile Include="Backup.cpp">
       <Filter>Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="Backup.h">
       <Filter>Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

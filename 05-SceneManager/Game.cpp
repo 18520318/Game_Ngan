@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Animations.h"
 #include "PlayScene.h"
+#include "IntroScene.h"
 
 CGame * CGame::__instance = NULL;
 
@@ -480,8 +481,14 @@ void CGame::_ParseSection_SCENES(string line)
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
 
-	LPSCENE scene = new CPlayScene(id, path);
-	scenes[id] = scene;
+	if (id == MAIN_SCENE_ID) {
+		LPSCENE scene = new CPlayScene(id, path);
+		scenes[id] = scene;
+	}
+	else if (id == INTRO_SCENE_ID) {
+		LPSCENE scene = new IntroScene(id, path);
+		scenes[id] = scene;
+	}
 }
 
 /*
@@ -536,7 +543,7 @@ void CGame::SwitchScene()
 	if (next_scene < 0 || next_scene == current_scene) return; 
 
 	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
-
+	if (current_scene != 0)
 	scenes[current_scene]->Unload();
 
 	//reset prev scene

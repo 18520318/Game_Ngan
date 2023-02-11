@@ -62,7 +62,7 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 	LPTEXTURE tex = CTextures::GetInstance()->Get(texID);
 	if (tex == NULL)
 	{
-		DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
+		DebugOut(L"[ERROR] Texture IDDD %d not found!\n", texID);
 		return; 
 	}
 
@@ -444,6 +444,13 @@ void CPlayScene::Unload()
 
 	objects.clear();
 	player = NULL;
+
+	gameTime->SetTimeOut(0);
+	delete map;
+
+	map = nullptr;
+	isFlyCam = false;
+
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
 }

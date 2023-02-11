@@ -14,7 +14,7 @@ void CTail::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void CTail::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CTail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

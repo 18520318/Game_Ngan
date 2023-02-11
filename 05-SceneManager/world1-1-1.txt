@@ -1,5 +1,11 @@
 # list of object assets to load in this scene
 [ASSETS]
+
+mario.txt
+coin.txt
+items.txt
+hud.txt
+effect.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
