@@ -5,6 +5,7 @@
 #include "BGBlock.h"
 #include "QuestionBrick.h"
 #include "GoldBrick.h"
+#include "Goomba.h"
 
 Koopas::Koopas(float x, float y, int model) : CGameObject(x, y)
 {
@@ -286,6 +287,8 @@ void Koopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithQuestionBrick(e);
 	else if (dynamic_cast<GoldBrick*>(e->obj))
 		OnCollisionWithGoldBrick(e);
+	else if (dynamic_cast<CGoomba*>(e->obj))
+		OnCollisionWithGoomba(e);
 }
 
 void Koopas::OnCollisionWithBackGroundBlock(LPCOLLISIONEVENT e)
@@ -352,6 +355,13 @@ void Koopas::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e)
 				}
 			}
 		}
+	}
+}
+
+void Koopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
+{
+	if (state == KOOPAS_STATE_IS_KICKED) {
+		e->obj->SetState(ENEMY_STATE_IS_KOOPAS_ATTACKED);
 	}
 }
 
