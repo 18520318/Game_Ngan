@@ -305,6 +305,12 @@ void Koopas::OnCollisionWithBackGroundBlock(LPCOLLISIONEVENT e)
 			}
 		}
 	}
+	if (e->nx != 0) {
+		if (state == KOOPAS_STATE_IS_KICKED) {
+			vx = -vx;
+			nx = -nx;
+		}
+	}
 }
 
 void Koopas::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
@@ -314,6 +320,7 @@ void Koopas::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
 	if (e->nx != 0 && !questionBrick->isEmpty) {
 		if (state == KOOPAS_STATE_IS_KICKED) {
 			questionBrick->SetState(QUESTION_BRICK_STATE_UP);
+			vx = -vx;
 		}
 	}
 }
