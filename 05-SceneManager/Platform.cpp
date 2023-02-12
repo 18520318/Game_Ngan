@@ -2,7 +2,7 @@
 
 #include "Sprite.h"
 #include "Sprites.h"
-
+#include "Utils.h"
 #include "Textures.h"
 
 void CPlatform::RenderBoundingBox()
@@ -26,6 +26,8 @@ void CPlatform::RenderBoundingBox()
 	float xx = x - this->cellWidth / 2 + rect.right / 2;
 
 	CGame::GetInstance()->Draw(xx - cx, y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
+
+	SetType(EType::OBJECT);
 }
 
 int CPlatform::IsBlocking(float nx, float ny, CGameObject* target)
