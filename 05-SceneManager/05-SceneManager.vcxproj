@@ -166,6 +166,7 @@
     <ClCompile Include="PiranhaPlant.cpp" />
     <ClCompile Include="PortalIn.cpp" />
     <ClCompile Include="PortalOut.cpp" />
+    <ClCompile Include="PowerBar.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Tail.cpp" />
     <ClCompile Include="debug.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="PiranhaPlant.h" />
     <ClInclude Include="PortalIn.h" />
     <ClInclude Include="PortalOut.h" />
+    <ClInclude Include="PowerBar.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Tail.h" />
     <ClInclude Include="debug.h" />
