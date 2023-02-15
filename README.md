@@ -1,6 +1,6 @@
 # Game_Ngan
 
-__Cheat Points __
+**Cheat Points**
 * Key "1": Mario state SMALL
 * Key "2": Mario state BIG
 * Key "3": Mario state RACOON
