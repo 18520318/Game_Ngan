@@ -6,7 +6,7 @@
 #define POWER_WIDTH 8
 #define SPACE_BETWEEN_POWER_AND_MAX 5
 
-#define ARROW_POSITION_Y_LIST {0, 65.5, 73.5, 81.5, 89.5, 97.5}
+#define ARROW_POSITION_Y_LIST {0, 8, 16, 24, 32, 40}
 #define LENGTH_ARROW    6
 
 class PowerBar :
