@@ -16,7 +16,8 @@ void PowerBar::Render()
 			animations->Get(POWER_MAX_ANI_ID)->Render(x + i * POWER_WIDTH + SPACE_BETWEEN_POWER_AND_MAX, y);
 		}
 		else {
-			animations->Get(POWER_ANI_ID)->Render(x + i * POWER_WIDTH, y);
+			//animations->Get(POWER_ANI_ID)->Render(x + i * POWER_WIDTH, y);
+			animations->Get(POWER_ANI_ID)->Render(x + posX[i], y);
 		}
 	}
 }

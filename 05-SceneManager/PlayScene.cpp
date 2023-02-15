@@ -407,8 +407,8 @@ void CPlayScene::SetCam(float cx, float cy)
 	/*else {
 		cy = (float)mh - (float)sh;
 	}*/
-	if (cy <= -HUD_HEIGHT)//Top Edge
-		cy = -HUD_HEIGHT;
+	//if (cy <= -HUD_HEIGHT)//Top Edge
+	//	cy = -HUD_HEIGHT;
 	if (cy + sh >= mh)//Bottom Edge
 		cy = (float)mh - (float)sh;
 	if (cy <= 0)//Left Edge

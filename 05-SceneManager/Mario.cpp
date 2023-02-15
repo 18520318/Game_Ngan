@@ -66,7 +66,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	if (game->IsKeyPressed(DIK_5)) {
 		SetPosition(1440, 50);
-		game->SetCamPos(GetX(), GetY());
+		//game->SetCamPos(GetX(), 0);
 	}
 	if (game->IsKeyPressed(DIK_6)) {
 		SetPosition(2260, 50);
@@ -84,12 +84,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	
 
-	float finall, finalt, finalr, finalb;
+	/*float finall, finalt, finalr, finalb;
 	this->GetBoundingBox(finall, finalt, finalr, finalb);
 
 	if (b - t != finalb - finalt) {
 		this->y += b - finalb;
-	}
+	}*/
 
 	for (size_t i = 0; i < ListEffect.size(); i++)
 	{
@@ -287,12 +287,15 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 		}
 	}
 	else if (e->nx != 0) {
-		if ((koopas->GetState() == KOOPAS_STATE_DEFEND || koopas->GetState() == KOOPAS_STATE_UPSIDE) && game->IsKeyDown(DIK_A)) {
-			koopas->isHeld = true;
-			hand = koopas;
-			return;
-		}else
-		SetHurt();
+		if ((koopas->GetState() == KOOPAS_STATE_DEFEND || koopas->GetState() == KOOPAS_STATE_UPSIDE)) {
+			if (game->IsKeyDown(DIK_A)) {
+				koopas->isHeld = true;
+				hand = koopas;
+				return;
+			}
+			else koopas->SetState(KOOPAS_STATE_IS_KICKED);
+		}
+		else SetHurt();
 	}
 	else if (e->ny > 0) {
 		SetHurt();
@@ -318,8 +321,9 @@ void CMario::OnCollisionWithPortalIn(LPCOLLISIONEVENT e)
 		}
 		if (p->sceneNo == MAIN_SCENE_ID) {
 			DebugOut(L"New map position: x: %f %f\n", p->GetCX(), p->GetCY());
-			CGame::GetInstance()->InitiateSwitchScene(p->sceneNo);
-			CGame::GetInstance()->SwitchScene();
+			/*CGame::GetInstance()->InitiateSwitchScene(p->sceneNo);
+			CGame::GetInstance()->SwitchScene();*/
+			CGame::GetInstance()->SwitchToMainMap(p->sceneNo, p->GetCX(), p->GetCY());
 		}
 	}
 }

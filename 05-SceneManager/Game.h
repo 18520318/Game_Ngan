@@ -133,6 +133,7 @@ public:
 	BYTE keyRelease[256] = { 0 };
 
 	void SwitchToHiddenMap(int scene_id, int cx, int cy);
+	void SwitchToMainMap(int scene_id, int cx, int cy);
 
 	~CGame();
 };

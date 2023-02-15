@@ -1,10 +1,10 @@
 #include "IntroScene.h"
 #include "Utils.h"
+#include "Game.h"
 
 IntroScene::IntroScene(int id, LPCWSTR filePath) :
 	CPlayScene(id, filePath)
 {
-
 }
 
 void IntroScene::Load()
@@ -55,6 +55,15 @@ void IntroScene::Render()
 {
 	CGame* game = CGame::GetInstance();
 	ground->Render(GROUND_POSITION_X, GROUND_POSITION_Y);
+}
+
+void IntroScene::Update(DWORD dt)
+{
+
+	CGame* game = CGame::GetInstance();
+	if (game->IsKeyDown(DIK_W)) {
+		CGame::GetInstance()->InitiateSwitchScene(MAIN_SCENE_ID);
+	}
 }
 
 void IntroScene::_ParseSection_SPRITES(string line)

@@ -185,6 +185,7 @@ void BaseMarioState::holdingShellUpdate(DWORD dt)
 		if (game->IsKeyReleased(DIK_A)) {
 			dynamic_cast<Koopas*>(mario->hand)->isHeld = false;
 			mario->hand->SetPosition(mario->hand->GetX() + 5 * mario->direct, mario->hand->GetY() - 5);
+			mario->hand->SetState(KOOPAS_STATE_IS_KICKED);
 			mario->hand = NULL;
 		}
 	}

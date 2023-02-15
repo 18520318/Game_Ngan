@@ -165,6 +165,12 @@
     <ClCompile Include="PowerBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WorldScene.cpp">
+      <Filter>World Map</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -315,6 +321,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PowerBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldScene.h">
+      <Filter>World Map</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

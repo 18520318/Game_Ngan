@@ -26,6 +26,7 @@ public:
     virtual void Load();
     virtual void UnLoad();
     virtual void Render();
+	virtual void Update(DWORD dt);
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);

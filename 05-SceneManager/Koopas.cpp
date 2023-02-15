@@ -401,7 +401,7 @@ void Koopas::SetState(int state)
 	case KOOPAS_STATE_IS_KICKED:
 		isKicked = true;
 		isHeld = false;
-		vx = mario->GetDirection() * KOOPAS_IS_KICKED_SPEED;
+		vx = mario->direct * KOOPAS_IS_KICKED_SPEED;
 		break;
 	case KOOPAS_STATE_JUMP:
 		vx = KOOPAS_RED_WING_SPEED_X;

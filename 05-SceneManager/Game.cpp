@@ -611,6 +611,26 @@ void CGame::SwitchToHiddenMap(int scene_id, int cx, int cy)
 		((CPlayScene*)scenes[current_scene])->LoadBackupPlayerInfo();
 }
 
+void CGame::SwitchToMainMap(int scene_id, int cx, int cy)
+{
+	if (dynamic_cast<CPlayScene*>(scenes[current_scene])) {
+		((CPlayScene*)scenes[current_scene])->BackupPlayerInfo();
+	}
+	prev_scene = current_scene;
+	next_scene = scene_id;
+	current_scene = next_scene;
+
+	LPSCENE s = scenes[next_scene];
+	this->SetKeyHandler(s->GetKeyEventHandler());
+
+	CMario* mario = ((CPlayScene*)scenes[next_scene])->GetPlayer();
+	mario->SetPosition(cx, cy);
+	((CPlayScene*)s)->PutPlayer(mario);
+
+	if (dynamic_cast<CPlayScene*>(scenes[current_scene]))
+		((CPlayScene*)scenes[current_scene])->LoadBackupPlayerInfo();
+}
+
 CGame::~CGame()
 {
 	pBlendStateAlpha->Release();
