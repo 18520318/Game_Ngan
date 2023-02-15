@@ -66,7 +66,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	if (game->IsKeyPressed(DIK_5)) {
 		SetPosition(1440, 50);
-		//game->SetCamPos(GetX(), 0);
+
+		CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
+		playScene->isFlyCam = true;
 	}
 	if (game->IsKeyPressed(DIK_6)) {
 		SetPosition(2260, 50);
