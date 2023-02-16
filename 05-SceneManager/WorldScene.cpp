@@ -2,6 +2,7 @@
 #include "Grass.h"
 #include "Door.h"
 #include "Blocker.h"
+#include "Hammer.h"
 
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
@@ -68,7 +69,7 @@ void WorldScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_HAMMER_WORLD_MAP:
 	{
-		//obj = new CHammer(x, y);
+		obj = new Hammer(x, y);
 		break;
 	}
 	case OBJECT_HELP_WORLD_MAP:
