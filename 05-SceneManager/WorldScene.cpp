@@ -1,5 +1,6 @@
 #include "WorldScene.h"
 #include "Grass.h"
+#include "Door.h"
 
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
@@ -51,7 +52,7 @@ void WorldScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_DOOR:
 	{
 		int scene = atoi(tokens[3].c_str());
-		//obj = new CDoor(x, y, scene);
+		obj = new Door(x, y, scene);
 		break;
 	}
 	case OBJECT_BLOCK_WORLD_MAP:
