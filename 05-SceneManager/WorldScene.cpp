@@ -1,5 +1,5 @@
 #include "WorldScene.h"
-
+#include "Grass.h"
 
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
@@ -45,7 +45,7 @@ void WorldScene::_ParseSection_OBJECTS(string line)
 
 	case OBJECT_TYPE_GRASS:
 	{
-		//obj = new CGrass(x, y);
+		obj = new Grass(x, y);
 		break;
 	}
 	case OBJECT_TYPE_DOOR:

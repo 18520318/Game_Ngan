@@ -171,6 +171,9 @@
     <ClCompile Include="WorldPlayer.cpp">
       <Filter>World Map</Filter>
     </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -328,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="WorldPlayer.h">
       <Filter>World Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
