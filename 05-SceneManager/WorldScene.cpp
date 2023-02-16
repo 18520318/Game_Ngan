@@ -1,6 +1,7 @@
 #include "WorldScene.h"
 #include "Grass.h"
 #include "Door.h"
+#include "Blocker.h"
 
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
@@ -61,7 +62,8 @@ void WorldScene::_ParseSection_OBJECTS(string line)
 		int allowRight = atoi(tokens[4].c_str());
 		int allowBottom = atoi(tokens[5].c_str());
 		int allowTop = atoi(tokens[6].c_str());
-		//obj = new CBlockObj(x, y, allowLeft, allowRight, allowBottom, allowTop);
+
+		obj = new Blocker(x, y, allowLeft, allowRight, allowBottom, allowTop);
 		break;
 	}
 	case OBJECT_HAMMER_WORLD_MAP:

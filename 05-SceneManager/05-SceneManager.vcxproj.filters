@@ -172,6 +172,15 @@
       <Filter>World Map</Filter>
     </ClCompile>
     <ClCompile Include="Grass.cpp">
+      <Filter>World Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>World Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocker.cpp">
+      <Filter>World Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Hammer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -333,6 +342,15 @@
       <Filter>World Map</Filter>
     </ClInclude>
     <ClInclude Include="Grass.h">
+      <Filter>World Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>World Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocker.h">
+      <Filter>World Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Hammer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
