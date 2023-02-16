@@ -8,9 +8,10 @@
 #include "Mario.h"
 #include "Timer.h"
 #include "WorldPlayer.h"
+#include "PlayScene.h"
 
 class WorldScene :
-    public CScene
+    public CPlayScene
 {
     CMario* mario = NULL;
     Timer* gameTime = new Timer(true, 0);
@@ -19,15 +20,13 @@ class WorldScene :
     int gameTimeRemain = 0;
     bool isTurnOnCamY = false;
 
-    void _ParseSection_SPRITES(string line);
-    void _ParseSection_ANIMATIONS(string line);
-
-    void _ParseSection_ASSETS(string line);
     void _ParseSection_OBJECTS(string line);
     void _ParseSection_TILEMAP(string line);
 
     void LoadAssets(LPCWSTR assetFile);
 public:
     WorldScene(int id, LPCWSTR filePath);
+
+    virtual void Load();
 };
 

@@ -52,6 +52,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	this->GetBoundingBox(l, t, r, b);
 
 	LPGAME game = CGame::GetInstance();
+	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
+	
 	if (game->IsKeyPressed(DIK_1)) {
 		SetLevel(MARIO_LEVEL_SMALL);
 	}
@@ -67,11 +69,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (game->IsKeyPressed(DIK_5)) {
 		SetPosition(1440, 50);
 
-		CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
 		playScene->isFlyCam = true;
 	}
 	if (game->IsKeyPressed(DIK_6)) {
 		SetPosition(2260, 50);
+		playScene->isFlyCam = true;
 	}
 
 	if (!isDisable) {
@@ -315,17 +317,18 @@ void CMario::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithPortalIn(LPCOLLISIONEVENT e)
 {
+	LPGAME game = CGame::GetInstance();
 	PortalIn* p = (PortalIn*)e->obj;//dynamic_cast<PortalIn*>(e->obj);
 	if (e->ny != 0) {
-		if (p->sceneNo == HIDDEN_SCENE_ID) {
-			DebugOut(L"New map position: x: %f %f\n", p->GetCX(), p->GetCY());
-			CGame::GetInstance()->SwitchToHiddenMap(p->sceneNo, p->GetCX(), p->GetCY());
-		}
-		if (p->sceneNo == MAIN_SCENE_ID) {
-			DebugOut(L"New map position: x: %f %f\n", p->GetCX(), p->GetCY());
-			/*CGame::GetInstance()->InitiateSwitchScene(p->sceneNo);
-			CGame::GetInstance()->SwitchScene();*/
-			CGame::GetInstance()->SwitchToMainMap(p->sceneNo, p->GetCX(), p->GetCY());
+		if ((p->portal_dir == -1 && game->IsKeyDown(DIK_DOWN)) || (p->portal_dir == 1 && game->IsKeyDown(DIK_S))) {
+			if (p->sceneNo == HIDDEN_SCENE_ID) {
+				DebugOut(L"New map position: x: %f %f\n", p->GetCX(), p->GetCY());
+				CGame::GetInstance()->SwitchToHiddenMap(p->sceneNo, p->GetCX(), p->GetCY());
+			}
+			if (p->sceneNo == MAIN_SCENE_ID) {
+				DebugOut(L"New map position: x: %f %f\n", p->GetCX(), p->GetCY());
+				CGame::GetInstance()->SwitchToMainMap(p->sceneNo, p->GetCX(), p->GetCY());
+			}
 		}
 	}
 }

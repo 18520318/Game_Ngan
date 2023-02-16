@@ -5,7 +5,6 @@
 class PortalIn :
     public CGameObject
 {
-	int portal_dir; // down -> 1, up -> -1
 
 	float cx;
 	float cy;
@@ -31,5 +30,7 @@ public:
 
 	float GetCX() { return cx; }
 	float GetCY() { return cy; }
+
+	int portal_dir; // down -> 1, up -> -1
 };
 

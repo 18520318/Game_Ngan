@@ -169,7 +169,7 @@
       <Filter>World Map</Filter>
     </ClCompile>
     <ClCompile Include="WorldPlayer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>World Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -327,7 +327,7 @@
       <Filter>World Map</Filter>
     </ClInclude>
     <ClInclude Include="WorldPlayer.h">
-      <Filter>Header Files</Filter>
+      <Filter>World Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
