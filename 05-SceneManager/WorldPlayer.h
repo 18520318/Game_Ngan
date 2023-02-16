@@ -30,5 +30,8 @@ public:
 	void SetState(int state);
 	void SetLevel(int l) { level = l; };
 
+	BOOLEAN isReadySwitchScene = false;
+
+	int sceneSwitch = -1;
 };
 

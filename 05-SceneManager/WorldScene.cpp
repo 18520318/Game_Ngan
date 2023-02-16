@@ -3,6 +3,7 @@
 #include "Door.h"
 #include "Blocker.h"
 #include "Hammer.h"
+#include "HelpBox.h"
 
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
@@ -15,6 +16,63 @@
 
 #define MAX_SCENE_LINE 1024
 
+#define ADJUST_PADDING 10
+#define HUD_HEIGHT 32
+
+void WorldScene::_ParseSection_SPRITES(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 6) return; // skip invalid lines
+
+	int ID = atoi(tokens[0].c_str());
+	int l = atoi(tokens[1].c_str());
+	int t = atoi(tokens[2].c_str());
+	int r = atoi(tokens[3].c_str());
+	int b = atoi(tokens[4].c_str());
+	int texID = atoi(tokens[5].c_str());
+
+	LPTEXTURE tex = CTextures::GetInstance()->Get(texID);
+	if (tex == NULL)
+	{
+		DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
+		return;
+	}
+
+	CSprites::GetInstance()->Add(ID, l, t, r, b, tex);
+}
+
+void WorldScene::_ParseSection_ANIMATIONS(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 3) return; // skip invalid lines - an animation must at least has 1 frame and 1 frame time
+
+	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
+
+	LPANIMATION ani = new CAnimation();
+
+	int ani_id = atoi(tokens[0].c_str());
+	for (int i = 1; i < tokens.size(); i += 2)	 
+	{
+		int sprite_id = atoi(tokens[i].c_str());
+		int frame_time = atoi(tokens[i + 1].c_str());
+		ani->Add(sprite_id, frame_time);
+	}
+
+	CAnimations::GetInstance()->Add(ani_id, ani);
+}
+
+void WorldScene::_ParseSection_ASSETS(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 1) return;
+
+	wstring path = ToWSTR(tokens[0]);
+
+	LoadAssets(path.c_str());
+}
 
 void WorldScene::_ParseSection_OBJECTS(string line)
 {
@@ -74,7 +132,7 @@ void WorldScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_HELP_WORLD_MAP:
 	{
-		//obj = new CHelp(x, y);
+		obj = new HelpBox(x, y);
 		break;
 	}
 
@@ -114,10 +172,41 @@ void WorldScene::_ParseSection_TILEMAP(string line)
 
 void WorldScene::LoadAssets(LPCWSTR assetFile)
 {
+	DebugOut(L"[INFO] Start loading assets from : %s \n", assetFile);
+
+	ifstream f;
+	f.open(assetFile);
+
+	int section = ASSETS_SECTION_UNKNOWN;
+
+	char str[MAX_SCENE_LINE];
+	while (f.getline(str, MAX_SCENE_LINE))
+	{
+		string line(str);
+
+		if (line[0] == '#') continue;	// skip comment lines	
+
+		if (line == "[SPRITES]") { section = ASSETS_SECTION_SPRITES; continue; };
+		if (line == "[ANIMATIONS]") { section = ASSETS_SECTION_ANIMATIONS; continue; };
+		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
+
+		//
+		// data section
+		//
+		switch (section)
+		{
+		case ASSETS_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
+		case ASSETS_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
+		}
+	}
+
+	f.close();
+
+	DebugOut(L"[INFO] Done loading assets from %s\n", assetFile);
 }
 
 WorldScene::WorldScene(int id, LPCWSTR filePath) :
-	CPlayScene(id, filePath)
+	CScene(id, filePath)
 {
 	player = NULL;
 
@@ -160,3 +249,76 @@ void WorldScene::Load()
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
+
+void WorldScene::Update(DWORD dt)
+{
+	vector<LPGAMEOBJECT> coObjects;
+	for (size_t i = 1; i < objects.size(); i++)
+	{
+		coObjects.push_back(objects[i]);
+	}
+
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Update(dt, &coObjects);
+	}
+
+	gameTime->Update(dt);
+	gameTimeRemain = GAME_TIME_LIMIT - gameTime->GetTime();
+
+	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+	if (player == NULL) return;
+
+	CGame::GetInstance()->SetCamPos(-ADJUST_PADDING, -HUD_HEIGHT - ADJUST_PADDING);
+
+	PurgeDeletedObjects();
+}
+
+void WorldScene::Render()
+{
+	CGame* game = CGame::GetInstance();
+	//CHUD* hud = new CHUD(game->GetCamX() + HUD_WIDTH / 2, game->GetCamY() + game->GetScreenHeight() - HUD_HEIGHT / 2);
+
+
+	map->DrawMap();
+
+	for (int i = 0; i < objects.size(); i++)
+		objects[i]->Render();
+	//hud->Render(mario, gameTimeRemain);
+}
+
+void WorldScene::Unload()
+{
+	for (int i = 0; i < objects.size(); i++)
+		delete objects[i];
+
+	objects.clear();
+	delete map;
+
+	map = nullptr;
+	player = nullptr;
+
+	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
+}
+
+void WorldScene::PurgeDeletedObjects()
+{
+	vector<LPGAMEOBJECT>::iterator it;
+	for (it = objects.begin(); it != objects.end(); it++)
+	{
+		LPGAMEOBJECT o = *it;
+		if (o->IsDeleted())
+		{
+			delete o;
+			*it = NULL;
+		}
+	}
+
+	// NOTE: remove_if will swap all deleted items to the end of the vector
+	// then simply trim the vector, this is much more efficient than deleting individual items
+	objects.erase(
+		std::remove_if(objects.begin(), objects.end(), WorldScene::IsGameObjectDeleted),
+		objects.end());
+}
+
+bool WorldScene::IsGameObjectDeleted(const LPGAMEOBJECT& o) { return o == NULL; }

@@ -159,6 +159,7 @@
     <ClCompile Include="GoldBrick.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Hammer.cpp" />
+    <ClCompile Include="HelpBox.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Koopas.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="GoldBrick.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Hammer.h" />
+    <ClInclude Include="HelpBox.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="Koopas.h" />

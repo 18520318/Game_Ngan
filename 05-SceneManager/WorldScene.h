@@ -11,7 +11,7 @@
 #include "PlayScene.h"
 
 class WorldScene :
-    public CPlayScene
+    public CScene
 {
     CMario* mario = NULL;
     Timer* gameTime = new Timer(true, 0);
@@ -20,6 +20,10 @@ class WorldScene :
     int gameTimeRemain = 0;
     bool isTurnOnCamY = false;
 
+    void _ParseSection_SPRITES(string line);
+    void _ParseSection_ANIMATIONS(string line);
+
+    void _ParseSection_ASSETS(string line);
     void _ParseSection_OBJECTS(string line);
     void _ParseSection_TILEMAP(string line);
 
@@ -28,5 +32,16 @@ public:
     WorldScene(int id, LPCWSTR filePath);
 
     virtual void Load();
+
+    Map* map = NULL;
+    vector<LPGAMEOBJECT> objects;
+
+    virtual void Update(DWORD dt);
+    virtual void Render();
+    virtual void Unload();
+
+    void PurgeDeletedObjects();
+
+    static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 };
 

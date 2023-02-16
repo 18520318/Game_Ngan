@@ -27,25 +27,20 @@ void WorldPlayer::Render()
 	int ani = ID_ANI_MARIO_SMALL_IN_WORLD_MAP;
 
 	switch (level) {
-	case MARIO_LEVEL_SMALL: {
-		ani = ID_ANI_MARIO_SMALL_IN_WORLD_MAP;
-		break;
-	}
-	case MARIO_LEVEL_BIG:
-	{
-		ani = ID_ANI_MARIO_IN_WORLD_MAP;
-		break;
-	}
-	case MARIO_LEVEL_RACOON:
-	{
-		ani = ID_ANI_MARIO_RACCOON_IN_WORLD_MAP;
-		break;
-	}
-	case MARIO_LEVEL_FIRE:
-	{
-		ani = ID_ANI_MARIO_FIRE_IN_WORLD_MAP;
-		break;
-	}
+		case MARIO_LEVEL_SMALL: {
+			ani = ID_ANI_MARIO_SMALL_IN_WORLD_MAP;
+			break;
+		}
+		case MARIO_LEVEL_BIG:
+		{
+			ani = ID_ANI_MARIO_IN_WORLD_MAP;
+			break;
+		}
+		case MARIO_LEVEL_RACOON:
+		{
+			ani = ID_ANI_MARIO_RACCOON_IN_WORLD_MAP;
+			break;
+		}
 	}
 
 	CAnimations::GetInstance()->Get(ani)->Render(x, y);
