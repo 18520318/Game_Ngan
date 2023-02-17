@@ -26,6 +26,8 @@ public:
 
 	virtual void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
+	void OnCollisionWithDoor(LPCOLLISIONEVENT e);
+	void OnCollisionWithBlocker(LPCOLLISIONEVENT e);
 
 	void SetState(int state);
 	void SetLevel(int l) { level = l; };
