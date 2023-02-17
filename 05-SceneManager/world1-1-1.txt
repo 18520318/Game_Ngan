@@ -76,7 +76,7 @@ effect.txt
 #Portal 
 #	x	y	r	b	startX	startY	types	scene_id
 #50	362	-32	394	16	2323	350	2	1
-#51	240	100	5	16	-1	2330	340	6
+51	370	0	5	16	1	2330	340	6
 
 [TILEMAP]
 Resources\Tilemap\world1-1-1.txt
