@@ -22,7 +22,7 @@ void WorldPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGame* game = CGame::GetInstance();
 	if (game->IsKeyDown(DIK_S)) {
 		if (sceneSwitch != -1 && sceneSwitch != 0) {
-			CGame::GetInstance()->InitiateSwitchScene(sceneSwitch);
+			CGame::GetInstance()->InitiateSwitchScene(MAIN_SCENE_ID);
 			sceneSwitch = -1;
 		}
 	}
@@ -63,6 +63,17 @@ void WorldPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			allowBottom = false;
 		}
 	}
+
+	if (game->IsKeyDown(DIK_1)) {
+		SetLevel(MARIO_LEVEL_SMALL);
+	}
+	if (game->IsKeyDown(DIK_2)) {
+		SetLevel(MARIO_LEVEL_BIG);
+	}
+	if (game->IsKeyDown(DIK_3)) {
+		SetLevel(MARIO_LEVEL_RACOON);
+	}
+
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
